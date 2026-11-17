@@ -15,6 +15,14 @@ const MOCK = fs.readFileSync(path.join(ROOT, 'reference/mockup.html'), 'utf8');
 const LANGS = ['en', 'zh'];
 const SITE = CFG.siteUrl.replace(/\/$/, '');
 const BUILD_DATE = new Date().toISOString().slice(0, 10);
+// Optional sub-path for previews, e.g. BASE_PATH=/YiQiMedicalGroup for https://<user>.github.io/YiQiMedicalGroup/.
+// Internal links/assets get the prefix; canonical, hreflang, sitemap and og:* keep the production domain.
+// A base-path build is marked noindex so a preview never competes with the real site.
+const BASE = (process.env.BASE_PATH || '').trim().replace(/\/+$/, '');
+if (BASE && !BASE.startsWith('/')) throw new Error('BASE_PATH must start with "/" (e.g. /YiQiMedicalGroup)');
+const withBase = (html) => (BASE
+  ? html.replace(/(href|src)="\/(?!\/)/g, `$1="${BASE}/`).replace(/(<meta charset="utf-8">)(?![\s\S]*name="robots")/, '$1\n<meta name="robots" content="noindex">')
+  : html);
 
 /* ------------------------------------------------------------------ pages */
 // slug '' = home. meta = proposed titles/descriptions from the mockup's handoff table (section 3).
@@ -547,7 +555,7 @@ for (const lang of LANGS) {
     else if (page.id === 'privacy' || page.id === 'terms') body = legalBody(page, lang);
     else { const r = interiorBody(page, lang); body = r.html; faqs = r.faqs; }
     page.__ld = pageLd(page, lang, faqs);
-    const html = document_(page, lang, body);
+    const html = withBase(document_(page, lang, body));
     const f = outFile(page, lang);
     fs.mkdirSync(path.dirname(f), { recursive: true });
     fs.writeFileSync(f, html);
@@ -612,9 +620,9 @@ fs.writeFileSync(path.join(OUT, '_headers'), `/assets/*\n  Cache-Control: public
 {
   const page = { id: 'home', t: { en: 'Page not found | YiQi Medical Group', zh: '找不到頁面｜益氣堂' }, d: { en: 'The page you are looking for has moved.', zh: '您要找的頁面已移動。' }, __ld: '' };
   const body = `<div class="section"><div class="wrap center"><h1>Page not found 找不到頁面</h1><p class="lead">The page may have moved. Try one of these:</p><div class="cta-row" style="justify-content:center"><a class="btn btn-primary" href="/">Home</a><a class="btn btn-ghost" href="/services">Services</a><a class="btn btn-ghost" href="/community-clinic">$60 Community Clinic</a><a class="btn btn-ghost" href="/contact">Contact</a></div></div></div>`;
-  fs.writeFileSync(path.join(OUT, '404.html'), document_(page, 'en', body, '<meta name="robots" content="noindex">').replace(/<link rel="canonical"[^>]*>\n?/, '').replace(/<link rel="alternate"[^>]*>\n?/g, ''));
+  fs.writeFileSync(path.join(OUT, '404.html'), withBase(document_(page, 'en', body, '<meta name="robots" content="noindex">').replace(/<link rel="canonical"[^>]*>\n?/, '').replace(/<link rel="alternate"[^>]*>\n?/g, '')));
 }
 
-console.log('Built', report.length, 'pages ->', path.relative(ROOT, OUT));
+console.log('Built', report.length, 'pages ->', path.relative(ROOT, OUT), BASE ? `(base path ${BASE}, noindex)` : '');
 const over = report.filter((r) => (r[0] === 'en' && (r[2] > 60 || r[3] > 160)));
 if (over.length) console.log('Long meta (EN):', over.map((o) => `${o[1]} title=${o[2]} desc=${o[3]}`).join('; '));

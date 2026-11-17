@@ -52,3 +52,14 @@ darkened slightly so they stay readable; the "Treatable Conditions" wall of text
 - **Analytics**: set `ga4Id` in `src/config.json`. Google Analytics loads only after a visitor clicks Accept in the cookie banner; "Cookie Settings" in the footer reopens it (the Privacy Policy promises both).
 - **Map** uses the keyless Google Maps embed for 555 Old County Rd.
 - **Cut-over**: deploy `site/`, point the domain, keep `_redirects` live, then submit `sitemap.xml` in Search Console. Check PageSpeed on the new pages.
+
+## 5. GitHub Pages
+
+`.github/workflows/pages.yml` builds, runs `npm run check` and publishes `site/` on every push to `main`.
+
+1. Repo **Settings → Pages → Source: GitHub Actions**.
+2. **Custom domain** (www.yiqimedicalgroup.com): set the domain under Settings → Pages, add the DNS CNAME, leave the variable below unset.
+3. **Preview at `https://<user>.github.io/<repo>/`**: add a repository variable (Settings → Secrets and variables → Actions → Variables) named `PAGES_BASE_PATH` with the value `/<repo>`. That build prefixes all internal links and is marked `noindex`; canonical URLs still point at the real domain.
+4. Local test of a prefixed build: `BASE_PATH=/<repo> npm run build && BASE_PATH=/<repo> npm run serve`, then open `http://localhost:4173/<repo>/`. Run a plain `npm run build` afterwards before committing `site/`.
+
+GitHub Pages ignores `site/_redirects`, so old Wix URLs will not 301 there. For the real cut-over use Cloudflare Pages or Netlify.
