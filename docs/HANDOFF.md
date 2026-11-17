@@ -47,9 +47,13 @@ darkened slightly so they stay readable; the "Treatable Conditions" wall of text
 
 ## 4. Technical set-up still needed
 
+- **Booking link (decision needed)**: the mockup used `yiqi.janeapp.com`, which does not open a booking page (it lands on Jane's account lookup). The live site actually books through **Wix Bookings** at `/appointments`, so `bookingUrl` in `src/config.json` currently points there. That page disappears when Wix is replaced. Before cut-over, confirm the real booking system and update `bookingUrl`.
+- **Prices now match the live Wix booking page**: community clinic $60 (90 min); acupuncture first visit $200 (90 min), follow-up $150 (45 min); Acu-Facial $250 (90 min); Tui Na $120 for 60 minutes ($2 per minute, 60-minute minimum, as on the live Tui Na page); Cupping $80; Herbal & Dietetic consultation $80; Home visit $300. Fertility has no listed price (shows "confirmed at booking"). The mockup's "5 Tui Na sessions for $500" is not on the live site, so it was removed; re-add it if the client wants it.
+- **Practitioner name**: the live Tui Na page names "Jenny", the mockup says "Sifu Amy". Confirm which is correct.
+
 - **Contact forms** open the visitor's email app (`mailto:` with a prefilled message) because there is no backend yet.
   Set `formEndpoint` in `src/config.json` (Formspree, Getform, a Cloudflare Worker…) to post directly.
-- **Analytics**: set `ga4Id` in `src/config.json`. Google Analytics loads only after a visitor clicks Accept in the cookie banner; "Cookie Settings" in the footer reopens it (the Privacy Policy promises both).
+- **Google Tag Manager**: the live site's container `GTM-TJPPLJJC` is set in `src/config.json` (`gtmId`). The live site also loads GA4 (`G-9K2S8H07XV`) and a Meta pixel (`645387839309461`). From outside it is not visible whether these come from inside the GTM container or from Wix's own integrations; open the container in Tag Manager to confirm they are in it, otherwise add them there, or they stop collecting when Wix is replaced. By default GTM loads only after a visitor clicks Accept in the cookie banner (the Privacy Policy promises that); "Cookie Settings" in the footer reopens it. Visitors who decline are not measured. Set `"gtmLoad": "always"` to load it on every visit, but then update the Privacy Policy and consider Consent Mode. The `<noscript>` GTM iframe is left out because it would load without consent. Check Tag Assistant once the new site is live; the container's triggers may reference Wix-specific pages or events.
 - **Map** uses the keyless Google Maps embed for 555 Old County Rd.
 - **Cut-over**: deploy `site/`, point the domain, keep `_redirects` live, then submit `sitemap.xml` in Search Console. Check PageSpeed on the new pages.
 

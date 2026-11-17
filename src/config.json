@@ -4,13 +4,15 @@
   "phoneE164": "+16507889818",
   "phoneIntl": "+1-650-788-9818",
   "email": "yiqimedicalgroup@gmail.com",
-  "bookingUrl": "https://yiqi.janeapp.com/",
+  "bookingUrl": "https://www.yiqimedicalgroup.com/appointments",
   "patientLoginUrl": "https://spark-3026.tailb63399.ts.net/patient",
   "staffLoginUrl": "https://spark-3026.tailb63399.ts.net/staff",
   "mapUrl": "https://www.google.com/maps/place/555+Old+County+Rd,+San+Carlos,+CA+94070/@37.5085264,-122.2625123,16z/data=!3m1!4b1!4m6!3m5!1s0x808fa20386fb09f1:0x7f5ebd666f1ab78f!8m2!3d37.5085222!4d-122.2599374!16s%2Fg%2F11bw3ztjzt",
   "mapEmbed": "https://www.google.com/maps?q=555+Old+County+Rd,+San+Carlos,+CA+94070&output=embed",
   "geo": { "lat": 37.5085222, "lng": -122.2599374 },
   "social": [],
+  "gtmId": "GTM-TJPPLJJC",
+  "gtmLoad": "after-consent",
   "ga4Id": "",
   "formEndpoint": ""
 }

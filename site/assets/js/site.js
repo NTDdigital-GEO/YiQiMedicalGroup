@@ -86,16 +86,27 @@
   var banner = $('#cookie');
   var read = function () { try { return localStorage.getItem(KEY); } catch (e) { return null; } };
   var write = function (v) { try { localStorage.setItem(KEY, v); } catch (e) {} };
+  // Tags: Google Tag Manager (the same container the Wix site used). By default it loads only after the visitor
+  // accepts cookies, as the Privacy Policy promises. Set "gtmLoad": "always" in src/config.json to load it on every visit.
   var loadAnalytics = function () {
-    if (!C.ga4Id || window.__gaLoaded) return;
-    window.__gaLoaded = true;
-    var s = document.createElement('script');
-    s.async = true; s.src = 'https://www.googletagmanager.com/gtag/js?id=' + encodeURIComponent(C.ga4Id);
-    document.head.appendChild(s);
-    window.dataLayer = window.dataLayer || [];
-    window.gtag = function () { window.dataLayer.push(arguments); };
-    window.gtag('js', new Date());
-    window.gtag('config', C.ga4Id, { anonymize_ip: true });
+    if (window.__tagsLoaded) return;
+    if (C.gtmId) {
+      window.__tagsLoaded = true;
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
+      var g = document.createElement('script');
+      g.async = true; g.src = 'https://www.googletagmanager.com/gtm.js?id=' + encodeURIComponent(C.gtmId);
+      document.head.appendChild(g);
+    } else if (C.ga4Id) {
+      window.__tagsLoaded = true;
+      var s = document.createElement('script');
+      s.async = true; s.src = 'https://www.googletagmanager.com/gtag/js?id=' + encodeURIComponent(C.ga4Id);
+      document.head.appendChild(s);
+      window.dataLayer = window.dataLayer || [];
+      window.gtag = function () { window.dataLayer.push(arguments); };
+      window.gtag('js', new Date());
+      window.gtag('config', C.ga4Id, { anonymize_ip: true });
+    }
   };
   var decide = function (v) {
     write(v);
@@ -104,7 +115,7 @@
   };
   if (banner) {
     var cur = read();
-    if (cur === 'granted') loadAnalytics();
+    if (cur === 'granted' || C.gtmLoad === 'always') loadAnalytics();
     if (!cur) banner.classList.add('show');
     var a = $('[data-consent="granted"]', banner), d = $('[data-consent="denied"]', banner);
     if (a) a.addEventListener('click', function () { decide('granted'); });

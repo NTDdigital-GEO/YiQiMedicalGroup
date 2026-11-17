@@ -32,10 +32,10 @@ const PAGES = [
     d: { en: 'Five licensed TCM doctors in San Carlos. PPO accepted. Try acupuncture at our $60 community clinic, no package. Book online or call 650-788-9818.', zh: '聖卡洛斯五位持照中醫師，接受 PPO 保險。$60 社區門診可無負擔體驗針灸，不需療程包。線上預約或來電 650-788-9818。' } },
   { id: 'services', slug: 'services', parent: 'home', banner: 'fabric.jpg', bannerPos: '50% 50%',
     t: { en: 'Services and Prices | YiQi Medical Group San Carlos', zh: '服務項目與價格｜聖卡洛斯益氣堂' },
-    d: { en: 'Acupuncture, fertility support, Tui Na and Acu-Facial in San Carlos, with prices. $60 community clinic, $150 private acupuncture. PPO accepted.', zh: '聖卡洛斯益氣堂的針灸、生育調理、推拿與針灸美顏，附價格。$60 社區門診、$150 私人針灸，接受 PPO。' } },
+    d: { en: 'Acupuncture, fertility support, Tui Na and Acu-Facial in San Carlos, with prices. $60 community clinic, private acupuncture from $150. PPO accepted.', zh: '聖卡洛斯益氣堂的針灸、生育調理、推拿與針灸美顏，附價格。$60 社區門診、私人針灸 $150 起，接受 PPO。' } },
   { id: 'acupuncture', slug: 'acupuncture', parent: 'services', banner: 'page-acupuncture.jpg', bannerPos: '50% 40%',
     t: { en: 'Acupuncture in San Carlos, CA | YiQi Medical Group', zh: '聖卡洛斯針灸｜益氣堂 YiQi Medical Group' },
-    d: { en: 'Private acupuncture with a licensed TCM doctor in San Carlos. $150 per session, PPO accepted, benefits verified first. Book online.', zh: '聖卡洛斯持照中醫師一對一針灸，每次 $150，接受 PPO，就診前先核對保險給付。線上預約。' } },
+    d: { en: 'Private acupuncture with a licensed TCM doctor in San Carlos. First visit $200, follow-ups $150. PPO accepted, benefits verified first. Book online.', zh: '聖卡洛斯持照中醫師一對一針灸，初診 $200、複診 $150，接受 PPO，就診前先核對保險給付。線上預約。' } },
   { id: 'community', slug: 'community-clinic', parent: 'home', banner: 'page-community.jpg', bannerPos: '50% 35%',
     t: { en: '$60 Community Acupuncture in San Carlos | YiQi', zh: '$60 社區針灸｜聖卡洛斯益氣堂' },
     d: { en: 'Acupuncture for $60: Mondays 3–6 pm (everyone) and Thursdays 10 am–6 pm (seniors 65+). No package, pay per visit. Book at YiQi in San Carlos.', zh: '$60 針灸：週一下午 3–6 點（所有民眾）、週四上午 10 點至下午 6 點（65 歲以上）。不需療程包，單次付費。' } },
@@ -44,7 +44,7 @@ const PAGES = [
     d: { en: 'Fertility acupuncture and TCM support in San Carlos, alone or alongside IUI/IVF. Licensed doctors. PPO accepted. Book a consult.', zh: '聖卡洛斯生育針灸與中醫調理，可單獨進行或配合 IUI／IVF。持照醫師，接受 PPO。預約諮詢。' } },
   { id: 'tuina', slug: 'tui-na-massage', parent: 'services', banner: 'page-tui-na.jpg', bannerPos: '50% 45%',
     t: { en: 'Tui Na Massage in San Carlos | YiQi Medical Group', zh: '聖卡洛斯推拿｜益氣堂 YiQi Medical Group' },
-    d: { en: '60-minute Tui Na with acupressure and hot stone: $120, or 5 sessions for $500. No needles. Insurance can be used. Book in San Carlos.', zh: '60 分鐘推拿，含穴位按壓與熱石：$120，或 5 次 $500。不用針，可使用保險。歡迎預約。' } },
+    d: { en: '60-minute Tui Na with acupressure and hot stone: $120. No needles. Insurance can be used. Book in San Carlos.', zh: '60 分鐘推拿，含穴位按壓與熱石：$120。不用針，可使用保險。歡迎預約。' } },
   { id: 'acufacial', slug: 'acu-facial', parent: 'services', banner: 'page-acu-facial.jpg', bannerPos: '50% 35%',
     t: { en: 'Acu-Facial Acupuncture in San Carlos | YiQi', zh: '聖卡洛斯針灸美顏｜益氣堂' },
     d: { en: 'Facial and body acupuncture for your skin, from licensed TCM doctors. An alternative to Botox and filler. Book at YiQi in San Carlos.', zh: '持照中醫師的臉部與身體針灸調理肌膚，是肉毒桿菌與填充劑之外的選擇。歡迎預約。' } },
@@ -176,6 +176,8 @@ function loadMockPage(id, lang) {
   sec.find('a[href^="#"]').each((_, a) => { const h = $(a).attr('href').slice(1); if (idForHash[h]) $(a).attr('href', urlPath(idForHash[h], lang)); });
   sec.find('a[target="_blank"]').each((_, a) => { $(a).attr('rel', 'noopener'); });
   sec.find('a[href="https://yiqi.janeapp.com/"]').each((_, a) => { $(a).attr('href', CFG.bookingUrl); });
+  // The mockup's FAQ names a booking address in plain text; point people at the button instead.
+  sec.html(sec.html().replace(/Book online at yiqi\.janeapp\.com/g, 'Use the Book Online button on this site').replace(/請至 yiqi\.janeapp\.com 線上預約/g, '請使用本站的「線上預約」按鈕'));
   return { $, sec };
 }
 
@@ -278,7 +280,7 @@ function orgLd() {
     name: 'YiQi Medical Group', alternateName: ['益氣堂', 'YiQi Medical Group 益氣堂'], url: SITE + '/',
     description: 'Traditional Chinese Medicine clinic in San Carlos, California: acupuncture, fertility support, Tui Na massage and Acu-Facial from five licensed TCM doctors. PPO accepted; $60 community acupuncture clinic.',
     logo: `${SITE}${IMG('logo-full.png')}`, image: `${SITE}${IMG('hero-leaves.jpg')}`,
-    telephone: CFG.phoneIntl, email: CFG.email, priceRange: '$60–$150',
+    telephone: CFG.phoneIntl, email: CFG.email, priceRange: '$60–$300',
     address: { '@type': 'PostalAddress', streetAddress: '555 Old County Road, Suite 100', addressLocality: 'San Carlos', addressRegion: 'CA', postalCode: '94070', addressCountry: 'US' },
     geo: { '@type': 'GeoCoordinates', latitude: CFG.geo.lat, longitude: CFG.geo.lng },
     hasMap: CFG.mapUrl, areaServed: [{ '@type': 'City', name: 'San Carlos' }, { '@type': 'AdministrativeArea', name: 'San Mateo County, CA' }],
@@ -290,10 +292,10 @@ function orgLd() {
 }
 const SERVICE_LD = {
   community: { name: '$60 Community Acupuncture', desc: 'Acupuncture with a licensed doctor in a shared treatment room. Mondays 3–6 pm (everyone) and Thursdays 10 am–6 pm (seniors 65+). Pay per visit, no package.', offers: [{ price: '60', name: 'Community clinic visit' }] },
-  acupuncture: { name: 'Private Acupuncture', desc: 'One-on-one acupuncture with a licensed doctor of Traditional Chinese Medicine. PPO accepted.', offers: [{ price: '150', name: 'Acupuncture session' }] },
-  tuina: { name: 'Tui Na Massage', desc: '60 minutes of meridian and acupressure massage with hot stone. No needles.', offers: [{ price: '120', name: 'Single 60-minute session' }, { price: '500', name: '5-session package' }] },
+  acupuncture: { name: 'Private Acupuncture', desc: 'One-on-one acupuncture with a licensed doctor of Traditional Chinese Medicine. PPO accepted.', offers: [{ price: '200', name: 'First visit / initial consultation (90 minutes)' }, { price: '150', name: 'Follow-up session (45 minutes)' }] },
+  tuina: { name: 'Tui Na Massage', desc: '60 minutes of meridian and acupressure massage with hot stone. No needles.', offers: [{ price: '120', name: '60-minute session' }] },
   fertility: { name: 'Fertility Acupuncture and TCM Support', desc: 'Cycle-regulation acupuncture and Chinese herbs, alone or alongside IUI/IVF.', offers: [] },
-  acufacial: { name: 'Acu-Facial', desc: 'Facial and body acupuncture for skin, delivered by licensed TCM doctors.', offers: [] },
+  acufacial: { name: 'Acu-Facial', desc: 'Facial and body acupuncture for skin, delivered by licensed TCM doctors. 90 minutes.', offers: [{ price: '250', name: 'Acu-Facial session (90 minutes)' }] },
 };
 const DOCS_LD = [['Dr. Amy Wang', 'Founder · Pain & Stress Management', 'dr-wang.jpg'], ['Professor Kevin Yen', 'TCM Neurology & Immunity', 'dr-yen.jpg'], ['Dr. Kate Chen', 'TCM Fertility & Acu-Facial', 'dr-chen.jpg'], ['Dr. Phyu Phyu Thin', 'TCM Fertility & Acu-Facial', 'dr-thin.jpg'], ['Dr. Miles Ronkos', "TCM Men's Health & Sports Injury", 'dr-ronkos.jpg']];
 
@@ -354,7 +356,7 @@ ${alts}
 <link rel="stylesheet" href="/assets/css/site.css?v=${BUILD_DATE}">
 ${extraHead}
 ${page.__ld || ''}
-<script>window.YIQI=${JSON.stringify({ phone: CFG.phone, email: CFG.email, ga4Id: CFG.ga4Id || '', formEndpoint: CFG.formEndpoint || '' })};</script>
+<script>window.YIQI=${JSON.stringify({ phone: CFG.phone, email: CFG.email, gtmId: CFG.gtmId || '', gtmLoad: CFG.gtmLoad || 'after-consent', ga4Id: CFG.ga4Id || '', formEndpoint: CFG.formEndpoint || '' })};</script>
 </head>
 <body>
 ${header(lang, page.id)}
@@ -588,9 +590,9 @@ Book online: ${CFG.bookingUrl}
 
 ## Key pages
 - [$60 Community Clinic](${absUrl('community', 'en')}): schedule, what is included, how to book
-- [Acupuncture](${absUrl('acupuncture', 'en')}): private acupuncture, $150 per session, PPO accepted
+- [Acupuncture](${absUrl('acupuncture', 'en')}): private acupuncture, first visit $200 and follow-ups $150, PPO accepted
 - [Fertility acupuncture](${absUrl('fertility', 'en')}): support alone or alongside IUI/IVF
-- [Tui Na massage](${absUrl('tuina', 'en')}): 60 minutes, $120 or 5 sessions for $500, no needles
+- [Tui Na massage](${absUrl('tuina', 'en')}): 60 minutes, $120, no needles
 - [Acu-Facial](${absUrl('acufacial', 'en')}): facial and body acupuncture for skin
 - [Our doctors](${absUrl('team', 'en')}): Dr. Amy Wang, Prof. Kevin Yen, Dr. Kate Chen, Dr. Phyu Phyu Thin, Dr. Miles Ronkos
 - [FAQ](${absUrl('faq', 'en')}): cost, insurance, first visit, needles, fertility

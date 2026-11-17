@@ -18,7 +18,7 @@ const exists = (u) => {
   if (fs.existsSync(f) && fs.statSync(f).isFile()) return true;
   return fs.existsSync(path.join(f, 'index.html'));
 };
-const BAD = /\bTBC\b|待確認|待核對|Audit #|mockup|Mockup|Photo:|照片：|client to confirm|Pricing TBC|holistic|journey/i;
+const BAD = /\bTBC\b|待確認|待核對|Audit #|mockup|Mockup|Photo:|照片：|client to confirm|Pricing TBC|holistic|journey|janeapp/i;
 let problems = 0;
 const warn = (f, msg) => { problems++; console.log(`✗ ${path.relative(OUT, f)}: ${msg}`); };
 
