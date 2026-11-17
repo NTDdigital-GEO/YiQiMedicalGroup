@@ -64,6 +64,10 @@ p{margin:0 0 1em}
 .pill.staff{background:rgba(234,118,78,.5)}
 .pill:hover{color:#000;filter:brightness(.96)}
 .tel{font-family:var(--f-head);font-weight:500;font-size:16px;text-decoration:none;color:var(--green);white-space:nowrap}
+.call-btn{display:inline-flex;align-items:center;gap:7px;background:var(--green);color:#fff;text-decoration:none;border-radius:26px;padding:8px 18px;font-family:var(--f-head);font-weight:500;font-size:15px;letter-spacing:.03em;white-space:nowrap;line-height:1.2}
+.call-btn:hover{background:var(--green-d);color:#fff}
+.call-btn svg{flex:none}
+.nav-mobile{display:none}
 .lang{display:flex;border:1px solid var(--sage);border-radius:4px;background:#fff;overflow:hidden;font-family:var(--f-head);font-size:14px}
 .lang a{padding:6px 12px;text-decoration:none;color:var(--ink)}
 .lang a[aria-current="true"]{background:var(--sage-soft);color:#222;font-weight:500}
@@ -262,7 +266,6 @@ footer.site .btn-primary:hover{background:#cfe97a;color:#1b2a00}
 .clock td,.clock th{font-size:15px}
 
 @media(max-width:1060px){
-  .hdr-actions .tel{display:none}
   .brand-text{display:none}
 }
 @media(max-width:940px){
@@ -288,12 +291,15 @@ footer.site .btn-primary:hover{background:#cfe97a;color:#1b2a00}
   .arrow{display:none}
   .feature-card{margin:-60px 12px 0;max-width:none}
   .feature-photo{height:300px}
+  .nav-mobile{display:block}
+  .pill-login{display:none}
   .sticky{display:flex}
   .cookie{bottom:78px}
   body{padding-bottom:64px}
   .section{padding:44px 0}
 }
 @media(max-width:560px){
+  .call-num{display:none}
   .hdr-actions .pill{padding:7px 14px;font-size:13.5px}
   .brand img{height:48px}
   .fgrid{grid-template-columns:1fr}

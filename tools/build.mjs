@@ -229,10 +229,10 @@ function header(lang, curId) {
   <div class="hdr-top">
     <a class="brand" href="${urlPath('home', lang)}" aria-label="YiQi Medical Group 益氣堂"><span class="brand-zh" aria-hidden="true"><span>益</span><span>氣</span><span>堂</span></span><img src="${IMG('logo-full.png')}" alt="YiQi Medical Group" width="${imgSize('logo-full.png')[0]}" height="${imgSize('logo-full.png')[1]}"><span class="brand-text">${u.brandText}</span></a>
     <div class="hdr-actions">
-      <a class="tel" href="tel:${CFG.phoneE164}">${CFG.phone}</a>
+      <a class="call-btn" href="tel:${CFG.phoneE164}" aria-label="${u.callNow} ${CFG.phone}"><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.6a1 1 0 0 1-.25 1z"/></svg><span class="call-label">${u.callNow}</span> <span class="call-num">${CFG.phone}</span></a>
       <div class="lang" role="group" aria-label="Language"><a href="${urlPath(curId || 'home', 'en')}" hreflang="en" lang="en"${lang === 'en' ? ' aria-current="true"' : ''}>English</a><a href="${urlPath(curId || 'home', 'zh')}" hreflang="zh-Hant" lang="zh-Hant"${lang === 'zh' ? ' aria-current="true"' : ''}>中文</a></div>
-      <a class="pill" href="${CFG.patientLoginUrl}" rel="noopener">${u.patientLogin}</a>
-      <a class="pill staff" href="${CFG.staffLoginUrl}" rel="noopener">${u.staffLogin}</a>
+      <a class="pill pill-login" href="${CFG.patientLoginUrl}" rel="noopener">${u.patientLogin}</a>
+      <a class="pill pill-login staff" href="${CFG.staffLoginUrl}" rel="noopener">${u.staffLogin}</a>
       <button class="burger" id="burger" aria-label="${u.menu}" aria-expanded="false" aria-controls="mainnav">☰</button>
     </div>
   </div>
@@ -247,6 +247,8 @@ function header(lang, curId) {
     <a href="${urlPath('faq', lang)}"${cur('faq')}>${u.nav.faq}</a>
     <a href="${urlPath('contact', lang)}"${cur('contact')}>${u.nav.contact}</a>
     <a class="nav-book" href="${CFG.bookingUrl}" target="_blank" rel="noopener">${u.bookOnline}</a>
+    <a class="nav-mobile" href="${CFG.patientLoginUrl}" rel="noopener">${u.patientLogin}</a>
+    <a class="nav-mobile" href="${CFG.staffLoginUrl}" rel="noopener">${u.staffLogin}</a>
   </nav>
 </header>`;
 }
