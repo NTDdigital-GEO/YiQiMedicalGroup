@@ -37,7 +37,7 @@ darkened slightly so they stay readable; the "Treatable Conditions" wall of text
 2. **Condition claims removed** (erectile dysfunction, Parkinson's, stroke rehab, long COVID, RA, etc.) until the clinic and legal sign off.
 3. **Fertility and Acu-Facial**: shown as "price confirmed at booking" and "confirmed at consultation". Add real pricing when known.
 4. **Regular (non-community) clinic hours**: not published anywhere. Pages say "book online for current availability". Add hours in the copy and `openingHoursSpecification`.
-5. **Credentials**: Sifu Amy (Tui Na) license; Dr. Ronkos' NCCAOM® status (page shows "DTCM, L.Ac." only).
+5. **Credentials**: Jenny's full name, photo and license (Tui Na); Dr. Ronkos' NCCAOM® status (page shows "DTCM, L.Ac." only).
 6. **Founding story**: live site says Dr. Wang interned in Taichung, brand file says Hanoi. The build leaves it out.
 7. **Social links**: `social` in `src/config.json` is empty, so the footer shows none. Add the real Facebook / Instagram URLs.
 8. **Patient Login / Staff Login** still point to `spark-3026.tailb63399.ts.net/...` exactly as on the live site. Confirm that is the intended permanent address.
@@ -49,7 +49,7 @@ darkened slightly so they stay readable; the "Treatable Conditions" wall of text
 
 - **Booking link (decision needed)**: the mockup used `yiqi.janeapp.com`, which does not open a booking page (it lands on Jane's account lookup). The live site actually books through **Wix Bookings** at `/appointments`, so `bookingUrl` in `src/config.json` currently points there. That page disappears when Wix is replaced. Before cut-over, confirm the real booking system and update `bookingUrl`.
 - **Prices now match the live Wix booking page**: community clinic $60 (90 min); acupuncture first visit $200 (90 min), follow-up $150 (45 min); Acu-Facial $250 (90 min); Tui Na $120 for 60 minutes ($2 per minute, 60-minute minimum, as on the live Tui Na page); Cupping $80; Herbal & Dietetic consultation $80; Home visit $300. Fertility has no listed price (shows "confirmed at booking"). The mockup's "5 Tui Na sessions for $500" is not on the live site, so it was removed; re-add it if the client wants it.
-- **Practitioner name**: the live Tui Na page names "Jenny", the mockup says "Sifu Amy". Confirm which is correct.
+- **Tui Na practitioner**: named "Jenny", as on the live Tui Na page (the live page says her photo and full name are still to be added).
 
 - **Contact forms** open the visitor's email app (`mailto:` with a prefilled message) because there is no backend yet.
   Set `formEndpoint` in `src/config.json` (Formspree, Getform, a Cloudflare Worker…) to post directly.
