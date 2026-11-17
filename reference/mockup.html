@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>YiQi Medical Group 益氣堂 — Website Redesign Mockup</title>
+<style>
+:root{--ink:#1f2d36;--muted:#5b6b75;--brand:#2E5266;--brand2:#3b6a82;--accent:#C84B7C;--accent-d:#a93a65;--soft:#F2F5F7;--cream:#FAF7F2;--line:#dfe6ea;--warn:#fff4c2}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:#fff;color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,'PingFang TC','Microsoft JhengHei','Noto Sans TC','Segoe UI',sans-serif;line-height:1.65;font-size:16px}
+body[data-lang="en"] .zh{display:none}
+body[data-lang="zh"] .en{display:none}
+h1,h2,h3{font-family:Georgia,'Songti TC','Noto Serif TC','PMingLiU',serif;color:var(--brand);line-height:1.25;margin:0 0 .5em}
+h1{font-size:clamp(28px,4.2vw,44px)}
+h2{font-size:clamp(22px,3vw,32px)}
+h3{font-size:19px}
+a{color:var(--brand2)}
+.wrap{max-width:1120px;margin:0 auto;padding:0 20px}
+/* mock toolbar */
+.toolbar{background:#1f2d36;color:#d7e3ea;font-size:12.5px;padding:7px 14px;display:flex;gap:16px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+.toolbar a{color:#ffd9e8}
+.toolbar label{cursor:pointer;display:flex;gap:6px;align-items:center}
+/* header */
+header.site{position:sticky;top:0;z-index:50;background:#fff;border-bottom:1px solid var(--line)}
+.hdr{display:flex;align-items:center;gap:18px;padding:10px 20px;max-width:1240px;margin:0 auto}
+.logo{display:flex;flex-direction:column;text-decoration:none;line-height:1.1;margin-right:auto}
+.logo b{font-family:'Songti TC','Noto Serif TC',Georgia,serif;font-size:26px;color:var(--brand);letter-spacing:2px}
+.logo small{font-size:11.5px;color:var(--muted);letter-spacing:.4px}
+nav.main{display:flex;gap:4px;align-items:center}
+nav.main a,nav.main .dd>button{background:none;border:0;font:inherit;font-size:14.5px;color:var(--ink);text-decoration:none;padding:8px 10px;border-radius:8px;cursor:pointer;white-space:nowrap}
+nav.main a:hover,nav.main .dd>button:hover,nav.main a.cur{background:var(--soft);color:var(--brand)}
+nav.main a.pill{background:#e9f1f5;color:var(--brand);font-weight:700}
+.dd{position:relative}
+.dd .menu{display:none;position:absolute;top:100%;left:0;background:#fff;border:1px solid var(--line);border-radius:10px;box-shadow:0 8px 24px rgba(31,45,54,.12);min-width:230px;padding:6px;z-index:60}
+.dd:hover .menu,.dd.open .menu{display:block}
+.dd .menu a{display:block}
+.hdr-right{display:flex;align-items:center;gap:10px}
+.tel{font-size:14px;font-weight:700;color:var(--brand);text-decoration:none;white-space:nowrap}
+.lang{display:flex;border:1px solid var(--line);border-radius:20px;overflow:hidden}
+.lang button{background:#fff;border:0;padding:5px 11px;font-size:13px;cursor:pointer;color:var(--muted)}
+.lang button.on{background:var(--brand);color:#fff}
+.btn{display:inline-block;border-radius:999px;padding:12px 24px;font-weight:700;font-size:15.5px;text-decoration:none;border:2px solid transparent;cursor:pointer;font-family:inherit;line-height:1.2}
+.btn-primary{background:var(--accent);color:#fff}
+.btn-primary:hover{background:var(--accent-d)}
+.btn-ghost{background:#fff;color:var(--brand);border-color:var(--brand)}
+.btn-ghost:hover{background:var(--soft)}
+.btn-sm{padding:8px 16px;font-size:14px}
+.burger{display:none;background:none;border:1px solid var(--line);border-radius:8px;font-size:20px;padding:4px 10px;cursor:pointer}
+/* pages */
+.page{display:none}
+.page.active{display:block}
+.section{padding:56px 0}
+.section.alt{background:var(--soft)}
+.section.cream{background:var(--cream)}
+.center{text-align:center}
+.lead{font-size:18px;color:#33454f;max-width:760px}
+.center .lead{margin-left:auto;margin-right:auto}
+.eyebrow{font-size:13px;letter-spacing:1.2px;text-transform:uppercase;color:var(--accent);font-weight:700;margin-bottom:8px}
+/* hero */
+.hero{background:linear-gradient(135deg,#f4f8fa 0%,#fbf5f0 100%);padding:56px 0 48px}
+.hero-grid{display:grid;grid-template-columns:1.25fr .75fr;gap:36px;align-items:center}
+.hero p.lead{margin:14px 0 22px}
+.cta-row{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+.cta-note{font-size:13.5px;color:var(--muted);margin-top:10px}
+.clinic-card{background:#fff;border:1px solid var(--line);border-top:5px solid var(--accent);border-radius:14px;padding:22px;box-shadow:0 10px 30px rgba(46,82,102,.10)}
+.clinic-card .price{font-family:Georgia,serif;font-size:44px;color:var(--accent);font-weight:700;line-height:1}
+.clinic-card ul{margin:10px 0 14px 18px;padding:0}
+.trust{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border:1px solid var(--line);border-radius:12px;background:#fff;margin-top:34px;overflow:hidden}
+.trust div{padding:14px 16px;border-right:1px solid var(--line);font-size:14px}
+.trust div:last-child{border-right:0}
+.trust b{display:block;color:var(--brand);font-size:16px}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:16px;margin-top:24px}
+.card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:20px;display:flex;flex-direction:column}
+.card h3{margin-bottom:6px}
+.card p{margin:0 0 12px;color:#41535d;font-size:15px;flex:1}
+.card .price{font-weight:700;color:var(--ink);margin-bottom:8px}
+.card.hl{border:2px solid var(--accent)}
+.card .more{font-weight:700;text-decoration:none;color:var(--accent-d);font-size:14.5px}
+.split{display:grid;grid-template-columns:1fr 1fr;gap:36px;align-items:center}
+.ph{background:repeating-linear-gradient(45deg,#e9eff2,#e9eff2 12px,#f2f6f8 12px,#f2f6f8 24px);border:1px dashed #b7c6cf;border-radius:12px;min-height:240px;display:flex;align-items:center;justify-content:center;text-align:center;color:#6b7e89;font-size:13px;padding:14px}
+.ph.sq{min-height:190px}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:24px}
+.step{background:#fff;border:1px solid var(--line);border-radius:14px;padding:20px}
+.step .n{width:34px;height:34px;border-radius:50%;background:var(--brand);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;margin-bottom:10px}
+.team-strip{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-top:22px}
+.mini{background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px;text-align:center;font-size:13.5px}
+.mini .ph{min-height:110px;margin-bottom:8px;font-size:11px}
+.mini b{display:block;color:var(--brand)}
+.quotes{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:22px}
+.quote{background:#fff;border:1px solid var(--line);border-radius:14px;padding:20px;font-size:15px}
+.quote .stars{color:#d9a400;letter-spacing:2px;font-size:15px}
+.quote p{margin:8px 0;font-style:italic}
+.quote small{color:var(--muted)}
+.band{background:var(--brand);color:#fff;border-radius:16px;padding:28px 30px;display:grid;grid-template-columns:1.2fr .8fr;gap:24px;align-items:center}
+.band h2{color:#fff}
+.band .btn-ghost{border-color:#fff;color:#fff;background:transparent}
+.band .btn-primary{background:var(--accent)}
+table.t{width:100%;border-collapse:collapse;background:#fff;font-size:15px;margin:14px 0}
+table.t th,table.t td{border:1px solid var(--line);padding:10px 12px;text-align:left;vertical-align:top}
+table.t th{background:#eef3f6;color:var(--brand)}
+details{background:#fff;border:1px solid var(--line);border-radius:12px;padding:0;margin:10px 0}
+details summary{cursor:pointer;padding:14px 18px;font-weight:700;color:var(--brand);list-style:none}
+details summary::-webkit-details-marker{display:none}
+details summary:after{content:'+';float:right;font-size:20px;color:var(--accent)}
+details[open] summary:after{content:'–'}
+details .ans{padding:0 18px 16px;color:#33454f}
+ul.tick{list-style:none;padding:0;margin:10px 0}
+ul.tick li{padding-left:26px;position:relative;margin:7px 0}
+ul.tick li:before{content:'✓';position:absolute;left:0;color:var(--accent);font-weight:700}
+ul.x{list-style:none;padding:0;margin:10px 0}
+ul.x li{padding-left:26px;position:relative;margin:7px 0}
+ul.x li:before{content:'✕';position:absolute;left:0;color:#9aa8b0}
+.doc{display:grid;grid-template-columns:200px 1fr;gap:22px;background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px;margin:16px 0}
+.doc .ph{min-height:230px}
+.doc .role{color:var(--accent-d);font-weight:700;font-size:14px}
+.doc .cred{color:var(--muted);font-size:13.5px;margin-bottom:8px}
+.tea{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:14px;margin-top:18px}
+.tea .card h3 span{font-size:15px;color:var(--muted);font-weight:400}
+form.f{display:grid;gap:12px;background:#fff;border:1px solid var(--line);border-radius:14px;padding:20px}
+form.f label{font-size:13.5px;font-weight:700;color:var(--brand);display:block;margin-bottom:3px}
+form.f input,form.f select,form.f textarea{width:100%;border:1px solid #c9d5dc;border-radius:10px;padding:11px 12px;font:inherit;font-size:15px}
+.small{font-size:13px;color:var(--muted)}
+.tbc{background:var(--warn);border:1px dashed #d6b300;border-radius:6px;padding:0 6px;font-size:.92em}
+.disc{font-size:13px;color:var(--muted);border-top:1px solid var(--line);margin-top:20px;padding-top:12px}
+.mapph{min-height:220px}
+/* footer */
+footer.site{background:#1f2d36;color:#cdd9e0;padding:40px 0 24px;margin-top:0}
+footer.site a{color:#e8f0f4}
+.fgrid{display:grid;grid-template-columns:1.3fr 1fr 1fr 1fr;gap:26px}
+footer.site h4{color:#fff;margin:0 0 8px;font-size:15px}
+footer.site p,footer.site li{font-size:14px;margin:4px 0}
+footer.site ul{list-style:none;padding:0;margin:0}
+.copy{border-top:1px solid #3a4a55;margin-top:24px;padding-top:14px;font-size:12.5px;color:#9db0bb}
+/* sticky mobile */
+.sticky{display:none;position:fixed;left:0;right:0;bottom:0;z-index:70;background:#fff;border-top:1px solid var(--line);padding:8px 12px;gap:8px;box-shadow:0 -6px 18px rgba(0,0,0,.08)}
+.sticky a{flex:1;text-align:center}
+/* audit flags */
+.flag{display:none;background:#fdeaf2;border:1px solid #efb3cd;color:#7a2147;border-radius:8px;padding:7px 12px;font-size:12.5px;margin:10px 0;line-height:1.45}
+body.notes .flag{display:block}
+.flag b{color:#a93a65}
+.handoff h3{margin-top:26px}
+.handoff table.t{font-size:13.5px}
+@media(max-width:940px){
+ .hero-grid,.split,.band{grid-template-columns:1fr}
+ .trust{grid-template-columns:1fr 1fr}.trust div{border-bottom:1px solid var(--line)}
+ .steps,.quotes{grid-template-columns:1fr}
+ .team-strip{grid-template-columns:repeat(3,1fr)}
+ .fgrid{grid-template-columns:1fr 1fr}
+ .doc{grid-template-columns:1fr}
+ .burger{display:block}
+ nav.main{display:none;position:absolute;top:100%;left:0;right:0;background:#fff;border-bottom:1px solid var(--line);flex-direction:column;align-items:stretch;padding:10px 16px;gap:0}
+ nav.main.open{display:flex}
+ .dd .menu{display:block;position:static;border:0;box-shadow:none;padding:0 0 0 14px}
+ .dd>button{display:none}
+ .tel{display:none}
+ .sticky{display:flex}
+ body{padding-bottom:60px}
+}
+</style>
+</head>
+<body data-lang="en">
+
+<div class="toolbar">
+  <span>MOCKUP v1 · YiQi Medical Group 益氣堂 redesign · Oct 14, 2026 · not live — copy and prices marked <span class="tbc" style="color:#1f2d36">TBC</span> need client confirmation</span>
+  <span style="display:flex;gap:16px;align-items:center">
+    <label><input type="checkbox" id="notesToggle"> <span class="en">Show audit notes</span><span class="zh">顯示健檢備註</span></label>
+    <a href="#notes"><span class="en">Handoff notes</span><span class="zh">交付備註</span></a>
+  </span>
+</div>
+
+<header class="site">
+  <div class="hdr">
+    <a class="logo" href="#home"><b>益氣堂</b><small>YiQi Medical Group · San Carlos, CA</small></a>
+    <button class="burger" id="burger" aria-label="Menu">☰</button>
+    <nav class="main" id="mainnav">
+      <a href="#home" data-r="home"><span class="en">Home</span><span class="zh">首頁</span></a>
+      <div class="dd" id="dd">
+        <button type="button" id="ddbtn"><span class="en">Services ▾</span><span class="zh">服務項目 ▾</span></button>
+        <div class="menu">
+          <a href="#services" data-r="services"><span class="en">All services</span><span class="zh">全部服務</span></a>
+          <a href="#acupuncture" data-r="acupuncture"><span class="en">Acupuncture</span><span class="zh">針灸</span></a>
+          <a href="#fertility" data-r="fertility"><span class="en">Fertility</span><span class="zh">生育調理</span></a>
+          <a href="#tuina" data-r="tuina"><span class="en">Tui Na Massage</span><span class="zh">推拿</span></a>
+          <a href="#acufacial" data-r="acufacial"><span class="en">Acu-Facial</span><span class="zh">針灸美顏</span></a>
+        </div>
+      </div>
+      <a class="pill" href="#community" data-r="community"><span class="en">$60 Community Clinic</span><span class="zh">$60 社區門診</span></a>
+      <a href="#dietetics" data-r="dietetics"><span class="en">Dietetics</span><span class="zh">食療</span></a>
+      <a href="#taichi" data-r="taichi"><span class="en">Tai-Chi</span><span class="zh">太極</span></a>
+      <a href="#team" data-r="team"><span class="en">Our Team</span><span class="zh">醫師團隊</span></a>
+      <a href="#faq" data-r="faq">FAQ</a>
+      <a href="#contact" data-r="contact"><span class="en">Contact</span><span class="zh">聯絡我們</span></a>
+    </nav>
+    <div class="hdr-right">
+      <a class="tel" href="tel:+16507889818">650-788-9818</a>
+      <div class="lang"><button data-l="en" class="on">EN</button><button data-l="zh">中文</button></div>
+      <a class="btn btn-primary btn-sm" href="https://yiqi.janeapp.com/" target="_blank" rel="noopener"><span class="en">Book Online</span><span class="zh">線上預約</span></a>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<!-- ================= HOME ================= -->
+<section class="page" id="p-home">
+  <div class="hero"><div class="wrap">
+    <div class="hero-grid">
+      <div>
+        <div class="eyebrow"><span class="en">San Carlos, CA · Traditional Chinese Medicine</span><span class="zh">加州聖卡洛斯 · 中醫診所</span></div>
+        <h1><span class="en">Acupuncture in San Carlos: five licensed TCM doctors, PPO accepted</span><span class="zh">聖卡洛斯針灸：五位持照中醫師團隊，接受 PPO 保險</span></h1>
+        <p class="lead"><span class="en">Real relief for pain, sleep, women's health and more. Start with a $60 community-clinic visit: no package, no commitment.</span><span class="zh">針對疼痛、睡眠、女性健康等問題，提供真正有感的調理。從 $60 社區門診開始：不需購買療程，沒有任何承諾。</span></p>
+        <div class="cta-row">
+          <a class="btn btn-primary" href="https://yiqi.janeapp.com/" target="_blank" rel="noopener"><span class="en">Book Online</span><span class="zh">線上預約</span></a>
+          <a class="btn btn-ghost" href="tel:+16507889818"><span class="en">Call 650-788-9818</span><span class="zh">來電 650-788-9818</span></a>
+        </div>
+        <div class="cta-note"><span class="en">PPO accepted. We check your benefits before your first visit, so you know your cost up front.</span><span class="zh">接受 PPO 保險。初診前我們會先核對您的保險給付，讓您事先清楚費用。</span></div>
+        <div class="flag"><span class="en"><b>Audit #2, #3:</b> adds the missing Book Online button; H1 is now brand + service + city (66 characters) instead of "Treatable Conditions"; removes "Your Journey To Holistic Wellness".</span><span class="zh"><b>健檢 #2、#3：</b>補上缺少的線上預約按鈕；H1 改為「服務＋城市＋差異點」，取代原本的「Treatable Conditions」；移除「Your Journey To Holistic Wellness」。</span></div>
+      </div>
+      <div class="clinic-card">
+        <div class="eyebrow"><span class="en">Community Clinic</span><span class="zh">社區門診</span></div>
+        <div class="price">$60 <span style="font-size:16px;color:var(--muted);font-family:inherit"><span class="en">per visit</span><span class="zh">每次</span></span></div>
+        <ul>
+          <li><span class="en"><b>Mondays</b> 3:00–6:00 pm · open to everyone</span><span class="zh"><b>週一</b> 下午 3:00–6:00 · 開放所有民眾</span></li>
+          <li><span class="en"><b>Thursdays</b> 10:00 am–6:00 pm · seniors 65+</span><span class="zh"><b>週四</b> 上午 10:00–下午 6:00 · 65 歲以上長者</span></li>
+          <li><span class="en">Last appointment 5:30 pm · acupuncture only</span><span class="zh">最後預約 5:30 pm · 僅限針灸</span></li>
+        </ul>
+        <a class="btn btn-primary btn-sm" href="https://yiqi.janeapp.com/" target="_blank" rel="noopener"><span class="en">Book a $60 visit</span><span class="zh">預約 $60 門診</span></a>
+        <a class="small" href="#community" style="margin-left:8px"><span class="en">Details →</span><span class="zh">詳情 →</span></a>
+      </div>
+    </div>
+    <div class="trust">
+      <div><b>★ 5.0 <span class="tbc"><span class="en">verify count</span><span class="zh">待核對</span></span></b><span class="en">Google reviews (15 as of May 2026)</span><span class="zh">Google 評論（2026 年 5 月為 15 則）</span></div>
+      <div><b><span class="en">5 licensed doctors</span><span class="zh">5 位持照醫師</span></b><span class="en">Doctors of Traditional Chinese Medicine, L.Ac.</span><span class="zh">中醫博士（DTCM）、持照針灸師（L.Ac.）</span></div>
+      <div><b>PPO</b><span class="en">Benefits verified before your first visit</span><span class="zh">初診前先核對保險給付</span></div>
+      <div><b>555 Old County Rd</b><span class="en">Suite 100, San Carlos, CA 94070</span><span class="zh">Suite 100, San Carlos, CA 94070</span></div>
+    </div>
+    <div class="flag"><span class="en"><b>Audit #9:</b> review rating and count now sit in the first screen (current site shows no reviews on the homepage). Re-check the live Google count before launch.</span><span class="zh"><b>健檢 #9：</b>評分與評論數放在首屏（現站首頁完全沒有評論）。上線前請重新核對 Google 目前的評論數。</span></div>
+  </div></div>
+
+  <div class="section"><div class="wrap">
+    <div class="center"><h2><span class="en">Find your starting point</span><span class="zh">找到適合您的起點</span></h2><p class="lead"><span class="en">Not sure where to begin? Most first-time patients start with the $60 community clinic or a private acupuncture visit.</span><span class="zh">不確定從哪裡開始？大多數新病患會先從 $60 社區門診或一對一私人針灸開始。</span></p></div>
+    <div class="cards">
+      <div class="card hl"><h3><span class="en">$60 Community Clinic</span><span class="zh">$60 社區門診</span></h3><div class="price"><span class="en">$60 per visit</span><span class="zh">每次 $60</span></div><p><span class="en">Acupuncture only, Mondays and Thursdays. Pay per visit, no package.</span><span class="zh">僅限針灸，週一與週四。單次付費，不需療程包。</span></p><a class="more" href="#community"><span class="en">See schedule →</span><span class="zh">查看時段 →</span></a></div>
+      <div class="card"><h3><span class="en">Private Acupuncture</span><span class="zh">私人針灸</span></h3><div class="price"><span class="en">$150 per session</span><span class="zh">每次 $150</span></div><p><span class="en">One-on-one with a licensed doctor, matched to your concern. PPO accepted.</span><span class="zh">由持照醫師一對一診療，依您的問題配對醫師。接受 PPO。</span></p><a class="more" href="#acupuncture"><span class="en">Learn more →</span><span class="zh">了解更多 →</span></a></div>
+      <div class="card"><h3><span class="en">Fertility Support</span><span class="zh">生育調理</span></h3><div class="price"><span class="tbc"><span class="en">Pricing TBC</span><span class="zh">價格待確認</span></span></div><p><span class="en">Cycle-regulation acupuncture and herbs, on its own or alongside IUI/IVF.</span><span class="zh">調經週期針灸與中藥，可單獨進行，也可配合 IUI／IVF。</span></p><a class="more" href="#fertility"><span class="en">Learn more →</span><span class="zh">了解更多 →</span></a></div>
+      <div class="card"><h3><span class="en">Tui Na Massage</span><span class="zh">推拿</span></h3><div class="price"><span class="en">$120 or 5 for $500</span><span class="zh">$120 或 5 次 $500</span></div><p><span class="en">60 minutes of meridian and acupressure massage with hot stone. No needles.</span><span class="zh">60 分鐘經絡穴位推拿加熱石，不用針。</span></p><a class="more" href="#tuina"><span class="en">Learn more →</span><span class="zh">了解更多 →</span></a></div>
+      <div class="card"><h3><span class="en">Acu-Facial</span><span class="zh">針灸美顏</span></h3><div class="price"><span class="tbc"><span class="en">Pricing TBC</span><span class="zh">價格待確認</span></span></div><p><span class="en">Facial and body acupuncture for skin, with no Botox and no filler.</span><span class="zh">臉部與身體針灸調理肌膚，不打肉毒桿菌、不打填充劑。</span></p><a class="more" href="#acufacial"><span class="en">Learn more →</span><span class="zh">了解更多 →</span></a></div>
+    </div>
+  </div></div>
+
+  <div class="section alt"><div class="wrap">
+    <div class="split">
+      <div>
+        <div class="eyebrow"><span class="en">Five doctors. One system.</span><span class="zh">五位醫師，一套系統。</span></div>
+        <h2><span class="en">A team, not a single session</span><span class="zh">一個團隊，而不只是一次療程</span></h2>
+        <p class="lead"><span class="en">Most acupuncture clinics on the Peninsula are solo practices. At YiQi, five licensed doctors work together with dietetics and Tai-Chi, so your plan can combine acupuncture, Chinese herbs, food guidance and movement, matched to your case.</span><span class="zh">半島區多數針灸診所是單人執業。益氣堂由五位持照醫師與食療、太極團隊一起合作，您的方案可以結合針灸、中藥、飲食指導與運動，依個案配對。</span></p>
+        <ul class="tick">
+          <li><span class="en">Backgrounds in neuroscience, electrical engineering, pharmacy and hospitality, all of whom chose Traditional Chinese Medicine</span><span class="zh">醫師背景涵蓋神經科學、電機工程、藥學與餐旅創業，最後都選擇了中醫</span></li>
+          <li><span class="en">Each doctor has a focus: pain and stress, neurology and immunity, fertility, men's health and sports injury</span><span class="zh">每位醫師各有專長：疼痛與壓力、神經與免疫、生育、男性健康與運動傷害</span></li>
+        </ul>
+        <a class="btn btn-ghost" href="#team"><span class="en">Meet the doctors</span><span class="zh">認識醫師團隊</span></a>
+      </div>
+      <div class="team-strip" style="grid-template-columns:repeat(3,1fr)">
+        <div class="mini"><div class="ph"><span class="en">Photo: Dr. Amy Wang</span><span class="zh">照片：王醫師</span></div><b>Dr. Amy Wang</b><span class="en">Pain &amp; Stress</span><span class="zh">疼痛與壓力</span></div>
+        <div class="mini"><div class="ph"><span class="en">Photo: Prof. Kevin Yen</span><span class="zh">照片：嚴教授</span></div><b>Prof. Kevin Yen</b><span class="en">Neurology &amp; Immunity</span><span class="zh">神經與免疫</span></div>
+        <div class="mini"><div class="ph"><span class="en">Photo: Dr. Kate Chen</span><span class="zh">照片：陳醫師</span></div><b>Dr. Kate Chen</b><span class="en">Fertility &amp; Acu-Facial</span><span class="zh">生育與針灸美顏</span></div>
+        <div class="mini"><div class="ph"><span class="en">Photo: Dr. Phyu Phyu Thin</span><span class="zh">照片：Thin 醫師</span></div><b>Dr. Phyu Phyu Thin</b><span class="en">Fertility &amp; Acu-Facial</span><span class="zh">生育與針灸美顏</span></div>
+        <div class="mini"><div class="ph"><span class="en">Photo: Dr. Miles Ronkos</span><span class="zh">照片：Ronkos 醫師</span></div><b>Dr. Miles Ronkos</b><span class="en">Men's Health &amp; Sports</span><span class="zh">男性健康與運動傷害</span></div>
+      </div>
+    </div>
+    <div class="flag"><span class="en"><b>Audit #3, #8:</b> replaces generic hero language with the clinic's real differentiators (team, PPO, $60 option). Doctor order follows the brand file: Wang, Yen, Chen, Thin, Ronkos. Re-use the existing photos from the live About page.</span><span class="zh"><b>健檢 #3、#8：</b>以診所真正的差異點（團隊、PPO、$60 選項）取代籠統的首頁用語。醫師排序依品牌文件：Wang、Yen、Chen、Thin、Ronkos。照片沿用現站 About 頁面的既有照片。</span></div>
+  </div></div>
+
+  <div class="section"><div class="wrap">
+    <div class="center"><h2><span class="en">Your first visit, step by step</span><span class="zh">初診怎麼進行</span></h2></div>
+    <div class="steps">
+      <div class="step"><div class="n">1</div><h3><span class="en">Book in about a minute</span><span class="zh">約一分鐘完成預約</span></h3><p><span class="en">Book online at any hour, or call 650-788-9818.</span><span class="zh">隨時線上預約，或來電 650-788-9818。</span></p></div>
+      <div class="step"><div class="n">2</div><h3><span class="en">We check your PPO benefits</span><span class="zh">我們先核對 PPO 給付</span></h3><p><span class="en">Our front desk verifies your coverage before you come in. No surprise bills.</span><span class="zh">櫃台會在您就診前核對保險給付，不會有意外帳單。</span></p></div>
+      <div class="step"><div class="n">3</div><h3><span class="en">Meet your doctor</span><span class="zh">與醫師面談</span></h3><p><span class="en">Your doctor reviews your history, pulse and tongue, explains the reasoning, and begins treatment.</span><span class="zh">醫師了解病史、把脈看舌，說明診斷思路，並開始治療。</span></p></div>
+    </div>
+    <div class="center" style="margin-top:26px"><a class="btn btn-primary" href="https://yiqi.janeapp.com/" target="_blank" rel="noopener"><span class="en">Book Online</span><span class="zh">線上預約</span></a></div>
+    <div class="flag"><span class="en"><b>Audit #6:</b> the "how first visits work" block mirrors the new-patient process competitor Silver Streak publishes, and answers the PPO question that AI search could not find on this site.</span><span class="zh"><b>健檢 #6：</b>「初診流程」區塊對應競爭對手 Silver Streak 公布的新病患流程，同時回答 AI 搜尋在現站找不到的 PPO 問題。</span></div>
+  </div></div>
+
+  <div class="section cream"><div class="wrap">
+    <div class="center"><h2><span class="en">What patients say</span><span class="zh">病患怎麼說</span></h2><p class="small"><span class="en">Verbatim Google reviews. Individual results vary.</span><span class="zh">以下為 Google 評論原文，個別結果因人而異。</span></p></div>
+    <div class="quotes">
+      <div class="quote"><div class="stars">★★★★★</div><p><span class="en">"Dr. Amy gave me incredible treatments for months, including acupuncture, cupping and massages. I have been recovered by at least 80% now."</span><span class="zh">「Dr. Amy 為我做了好幾個月很棒的治療，包括針灸、拔罐和按摩。我現在已經恢復至少八成了。」</span></p><small><span class="en">James · Google review · Dr. Amy Wang</span><span class="zh">James · Google 評論 · 王醫師</span></small></div>
+      <div class="quote"><div class="stars">★★★★★</div><p><span class="en">"Dr. Wang did acupuncture (not scary at all) and cupping (very invigorating)... I did not [expect] to feel so much better just in less than a day!"</span><span class="zh">「Dr. Wang 做了針灸（一點也不可怕）和拔罐（讓人很精神）……我沒想到不到一天就好這麼多！」</span></p><small><span class="en">Mabel · Google review · Dr. Amy Wang</span><span class="zh">Mabel · Google 評論 · 王醫師</span></small></div>
+      <div class="quote"><div class="stars">★★★★★</div><p><span class="en">"I have been seeing Dr. Kevin Yen for several months and the progress I have made is night and day."</span><span class="zh">「我看 Dr. Kevin Yen 好幾個月了，進步簡直是天壤之別。」</span></p><small><span class="en">Little Flower · Google review · Prof. Kevin Yen</span><span class="zh">Little Flower · Google 評論 · 嚴教授</span></small></div>
+    </div>
+    <p class="small center" style="margin-top:10px"><span class="en">Chinese lines are our translation of the original English reviews.</span><span class="zh">中文為我們對英文原評論的翻譯。</span></p>
+    <div class="center" style="margin-top:14px"><a class="btn btn-primary" href="https://yiqi.janeapp.com/" target="_blank" rel="noopener"><span class="en">Book Online</span><span class="zh">線上預約</span></a></div>
+    <div class="flag"><span class="en"><b>Audit #9:</b> quotes come from the Proof Vault (Q03, Q02, Q05). The Q02 typo is bracket-corrected as the vault recommends. Dr. Vi testimonial is intentionally not carried over.</span><span class="zh"><b>健檢 #9：</b>引言取自 Proof Vault（Q03、Q02、Q05）；Q02 的拼字錯誤依 Vault 建議以括號更正。Dr. Vi 的推薦語刻意不沿用。</span></div>
+  </div></div>
+
+  <div class="section"><div class="wrap">
+    <div class="band">
+      <div>
+        <h2><span class="en">Try acupuncture for $60. No package.</span><span class="zh">$60 試試針灸，不需療程包。</span></h2>
+        <p><span class="en">Mondays 3–6 pm for everyone. Thursdays 10 am–6 pm for seniors 65+. If it works for you, continue with private visits (PPO accepted). If not, you have spent an hour and $60, not a package.</span><span class="zh">週一下午 3–6 點開放所有民眾；週四上午 10 點至下午 6 點為 65 歲以上長者。有效就可改約私人門診（接受 PPO）；不適合，您只花了一小時與 $60，而不是整個療程包。</span></p>
+      </div>
+      <div class="cta-row"><a class="btn btn-primary" href="https://yiqi.janeapp.com/" target="_blank" rel="noopener"><span class="en">Book a $60 visit</span><span class="zh">預約 $60 門診</span></a><a class="btn btn-ghost" href="#community"><span class="en">Details</span><span class="zh">詳情</span></a></div>
+    </div>
+    <div class="flag"><span class="en"><b>Audit #7:</b> the Monday general-public clinic, missing from the current homepage, is now stated beside the Thursday senior clinic.</span><span class="zh"><b>健檢 #7：</b>現站首頁缺少的週一一般民眾門診，現在與週四長者門診並列。</span></div>
+  </div></div>
+
+  <div class="section alt"><div class="wrap">
+    <div class="center"><h2><span class="en">Common questions</span><span class="zh">常見問題</span></h2></div>
+    <div style="max-width:820px;margin:16px auto">
+      <details><summary><span class="en">Do you accept insurance?</span><span class="zh">你們接受保險嗎？</span></summary><div class="ans"><span class="en">We accept PPO plans. Acupuncture coverage varies by plan, so our front desk verifies your benefits before your first visit. The $60 community clinic is pay-per-visit and needs no insurance.</span><span class="zh">我們接受 PPO 保險。各保險對針灸的給付不同，因此櫃台會在初診前先核對您的給付。$60 社區門診為單次付費，不需使用保險。</span></div></details>
+      <details><summary><span class="en">How much does a visit cost?</span><span class="zh">一次多少錢？</span></summary><div class="ans"><span class="en">Community clinic: $60. Private acupuncture: $150 per session. Tui Na: $120, or 5 sessions for $500.</span><span class="zh">社區門診 $60；私人針灸每次 $150；推拿 $120，或 5 次 $500。</span></div></details>
+      <details><summary><span class="en">Does acupuncture hurt?</span><span class="zh">針灸會痛嗎？</span></summary><div class="ans"><span class="en">Most people feel a slight pinch or tingling for a moment. The needles are about as thin as a hair, and many patients relax enough to fall asleep.</span><span class="zh">多數人只會在進針時感到輕微刺感或酥麻。針細如髮絲，許多病患放鬆到睡著。</span></div></details>
+      <details><summary><span class="en">What happens at my first visit?</span><span class="zh">初診會做什麼？</span></summary><div class="ans"><span class="en">Your doctor reviews your history, checks your pulse and tongue, explains the plan, and starts treatment in the same visit.</span><span class="zh">醫師會了解病史、把脈看舌、說明治療方案，並於同一次就診開始治療。</span></div></details>
+      <div class="center" style="margin-top:14px"><a class="more" href="#faq" style="font-weight:700;color:var(--accent-d);text-decoration:none"><span class="en">See all questions →</span><span class="zh">查看全部問題 →</span></a></div>
+    </div>
+    <div class="flag"><span class="en"><b>Audit #6:</b> the site had no FAQ at all. Full FAQ page has 11 questions and should carry FAQPage markup.</span><span class="zh"><b>健檢 #6：</b>現站完全沒有 FAQ；完整 FAQ 頁有 11 題，並應加上 FAQPage 結構化資料。</span></div>
+  </div></div>
+
+  <div class="section"><div class="wrap">
+    <div class="split" style="align-items:start">
+      <div>
+        <h2><span class="en">Visit us in San Carlos</span><span class="zh">歡迎蒞臨聖卡洛斯</span></h2>
+        <p><b>YiQi Medical Group 益氣堂</b><br>555 Old County Road, Suite 100<br>San Carlos, CA 94070</p>
+        <p><span class="en">Phone</span><span class="zh">電話</span>: <a href="tel:+16507889818">650-788-9818</a><br>Email: <a href="mailto:yiqimedicalgroup@gmail.com">yiqimedicalgroup@gmail.com</a></p>
+        <p><span class="en">Community clinic: Mon 3–6 pm, Thu 10 am–6 pm (seniors 65+)</span><span class="zh">社區門診：週一 3–6 pm；週四 10 am–6 pm（65 歲以上）</span><br><span class="en">Regular clinic hours:</span><span class="zh">一般門診時間：</span> <span class="tbc"><span class="en">TBC</span><span class="zh">待確認</span></span></p>
+        <div class="ph mapph"><span class="en">Embedded Google Map: 555 Old County Rd, San Carlos</span><span class="zh">嵌入 Google 地圖：555 Old County Rd, San Carlos</span></div>
+      </div>
+      <form class="f" onsubmit="event.preventDefault();alert('Mockup only — form not connected.')">
+        <h3><span class="en">Request a call back</span><span class="zh">預約回電</span></h3>
+        <div><label><span class="en">Name</span><span class="zh">姓名</span></label><input type="text"></div>
+        <div><label><span class="en">Phone or email</span><span class="zh">電話或 Email</span></label><input type="text"></div>
+        <div><label><span class="en">I'm interested in</span><span class="zh">我想了解</span></label><select id="sel1"><option data-t-en="Community clinic ($60)" data-t-zh="社區門診（$60）"></option><option data-t-en="Private acupuncture" data-t-zh="私人針灸"></option><option data-t-en="Fertility support" data-t-zh="生育調理"></option><option data-t-en="Tui Na massage" data-t-zh="推拿"></option><option data-t-en="Acu-Facial" data-t-zh="針灸美顏"></option></select></div>
+        <div><label><span class="en">Message (optional)</span><span class="zh">留言（選填）</span></label><textarea rows="3"></textarea></div>
+        <button class="btn btn-primary" type="submit"><span class="en">Request a call back</span><span class="zh">預約回電</span></button>
+        <div class="small"><span class="en">Please do not include medical details in this form. We will discuss them by phone or at your visit.</span><span class="zh">請勿在此表單填寫病情細節，我們會在電話中或就診時與您討論。</span></div>
+      </form>
+    </div>
+    <div class="flag"><span class="en"><b>Audit #1, #2, #10:</b> NAP matches everywhere (phone 650-788-9818; the current schema says 9918 and must be corrected). Form cut to 4 fields: "Company Name" and "Patient Status" removed.</span><span class="zh"><b>健檢 #1、#2、#10：</b>各處 NAP 一致（電話 650-788-9818；現有結構化資料寫 9918，需更正）。表單精簡為 4 欄，移除「Company Name」與「Patient Status」。</span></div>
+  </div></div>
+</section>
+
+<!-- ================= SERVICES ================= -->
+<section class="page" id="p-services">
+  <div class="section"><div class="wrap">
+    <div class="eyebrow"><span class="en">Services</span><span class="zh">服務項目</span></div>
+    <h1><span class="en">Services and prices</span><span class="zh">服務項目與價格</span></h1>
+    <p class="lead"><span class="en">Every service is delivered by a licensed doctor or practitioner. Insurance coverage depends on your plan; we verify it before you visit.</span><span class="zh">所有服務均由持照醫師或治療師提供。保險給付依您的方案而定，我們會在就診前為您核對。</span></p>
+    <div class="scroll" style="overflow-x:auto"><table class="t">
+      <tr><th><span class="en">Service</span><span class="zh">服務</span></th><th><span class="en">Best for</span><span class="zh">適合</span></th><th><span class="en">Price</span><span class="zh">價格</span></th><th><span class="en">Insurance</span><span class="zh">保險</span></th></tr>
+      <tr><td><a href="#community"><b><span class="en">$60 Community Clinic</span><span class="zh">$60 社區門診</span></b></a></td><td><span class="en">Trying acupuncture with no commitment; seniors 65+ on Thursdays</span><span class="zh">想無負擔體驗針灸；週四 65 歲以上長者</span></td><td><span class="en">$60 per visit (acupuncture only)</span><span class="zh">每次 $60（僅限針灸）</span></td><td><span class="en">Not needed, pay per visit</span><span class="zh">不需使用，單次付費</span></td></tr>
+      <tr><td><a href="#acupuncture"><b><span class="en">Private Acupuncture</span><span class="zh">私人針灸</span></b></a></td><td><span class="en">Pain, stress and sleep, digestion, allergies, women's health</span><span class="zh">疼痛、壓力與睡眠、消化、過敏、女性健康</span></td><td><span class="en">$150 per session</span><span class="zh">每次 $150</span></td><td><span class="en">PPO accepted</span><span class="zh">接受 PPO</span></td></tr>
+      <tr><td><a href="#fertility"><b><span class="en">Fertility Support</span><span class="zh">生育調理</span></b></a></td><td><span class="en">Trying to conceive, naturally or with IUI/IVF</span><span class="zh">備孕（自然受孕或 IUI／IVF）</span></td><td><span class="tbc"><span class="en">TBC</span><span class="zh">待確認</span></span></td><td><span class="en">Verified before your visit</span><span class="zh">就診前核對</span></td></tr>
+      <tr><td><a href="#tuina"><b><span class="en">Tui Na Massage</span><span class="zh">推拿</span></b></a></td><td><span class="en">Muscle and meridian work without needles</span><span class="zh">不用針的肌肉與經絡調理</span></td><td><span class="en">60 min · $120, or 5 for $500</span><span class="zh">60 分鐘 · $120，或 5 次 $500</span></td><td><span class="en">Insurance can be used</span><span class="zh">可使用保險</span></td></tr>
+      <tr><td><a href="#acufacial"><b><span class="en">Acu-Facial</span><span class="zh">針灸美顏</span></b></a></td><td><span class="en">Skin tone and texture, with no Botox and no filler</span><span class="zh">膚色與膚質調理，不打肉毒桿菌、不打填充劑</span></td><td><span class="tbc"><span class="en">TBC</span><span class="zh">待確認</span></span></td><td><span class="tbc"><span class="en">TBC</span><span class="zh">待確認</span></span></td></tr>
+    </table></div>
+    <div class="cta-row" style="margin-top:14px"><a class="btn btn-primary" href="https://yiqi.janeapp.com/" target="_blank" rel="noopener"><span class="en">Book Online</span><span class="zh">線上預約</span></a><a class="btn btn-ghost" href="tel:+16507889818">650-788-9818</a></div>
+    <div class="flag"><span class="en"><b>Audit #4, #8:</b> replaces the four image tiles at /services-5. Slug becomes /services; prices now appear on the page.</span><span class="zh"><b>健檢 #4、#8：</b>取代 /services-5 的四個圖片磚；網址改為 /services，並直接顯示價格。</span></div>
+  </div></div>
+</section>
+
+<!-- ================= ACUPUNCTURE ================= -->
+<section class="page" id="p-acupuncture">
+  <div class="section"><div class="wrap">
+    <div class="eyebrow"><span class="en">Services · Acupuncture</span><span class="zh">服務 · 針灸</span></div>
+    <h1><span class="en">Acupuncture in San Carlos</span><span class="zh">聖卡洛斯針灸</span></h1>
+    <p class="lead"><span class="en">Private one-on-one visits with a licensed doctor of Traditional Chinese Medicine. $150 per session. PPO accepted.</span><span class="zh">由持照中醫博士一對一診療。每次 $150，接受 PPO。</span></p>
+    <div class="cta-row"><a class="btn btn-primary" href="https://yiqi.janeapp.com/" target="_blank" rel="noopener"><span class="en">Book Online</span><span class="zh">線上預約</span></a><a class="btn btn-ghost" href="#community"><span class="en">Or try the $60 clinic</span><span class="zh">或先試 $60 門診</span></a></div>
+  </div></div>
+  <div class="section alt"><div class="wrap split" style="align-items:start">
+    <div>
+      <h2><span class="en">What is acupuncture?</span><span class="zh">什麼是針灸？</span></h2>
+      <p><span class="en">Acupuncture places thin, sterile needles at specific points on the body. Traditional Chinese Medicine describes the pathways between these points as meridians, and the energy that moves through them as qi. In plain terms: the goal is to help your body circulate, calm and repair itself.</span><span class="zh">針灸是將細小的無菌針，放在身體特定的穴位上。中醫把穴位之間的通路稱為經絡，在其中流動的能量稱為「氣」。簡單說，目標是幫助身體循環、平靜並自我修復。</span></p>
+      <h3><span class="en">What we commonly treat</span><span class="zh">常見調理項目</span></h3>
+      <ul class="tick">
+        <li><span class="en">Back, neck and joint pain; headaches and migraines</span><span class="zh">背、頸、關節疼痛；頭痛與偏頭痛</span></li>
+        <li><span class="en">Stress, anxiety and sleep problems</span><span class="zh">壓力、焦慮與睡眠問題</span></li>
+        <li><span class="en">Digestive complaints such as IBS, indigestion and nausea</span><span class="zh">腸躁症、消化不良、噁心等腸胃不適</span></li>
+        <li><span class="en">Allergies, sinus and cold symptoms</span><span class="zh">過敏、鼻竇與感冒症狀</span></li>
+        <li><span class="en">Women's health: menstrual cramps, PMS, menopause symptoms</span><span class="zh">女性健康：經痛、經前症候群、更年期症狀</span></li>
+        <li><span class="en">Fertility support (see Fertility page)</span><span class="zh">生育調理（見生育頁面）</span></li>
+      </ul>
+      <div class="flag"><span class="en"><b>Audit #8 (compliance):</b> this list keeps only the conditions already on the current Acupuncture page. The homepage list that included erectile dysfunction, Parkinson's, stroke rehab and long COVID is dropped until the clinic and legal sign off.</span><span class="zh"><b>健檢 #8（合規）：</b>此清單只保留現行針灸頁已有的項目；首頁原本的勃起功能障礙、帕金森氏症、中風復健、Long COVID 等，待診所與法務確認後才可放回。</span></div>
+    </div>
+    <div>
+      <div class="ph sq"><span class="en">Photo: treatment room (reuse existing image)</span><span class="zh">照片：診療室（沿用現站圖片）</span></div>
+      <h3 style="margin-top:18px"><span class="en">Is it painful?</span><span class="zh">會痛嗎？</span></h3>
+      <p><span class="en">You may feel a slight pinch or tingling as a needle goes in; it fades almost at once. Once the needles are in place, most people feel little or nothing, and many fall asleep. The needles are about as thin as a hair.</span><span class="zh">進針時可能有輕微刺感或酥麻，很快就消失。針留置後，多數人幾乎沒有感覺，不少人會睡著。針細如髮絲。</span></p>
+      <div class="card hl" style="margin-top:14px"><h3><span class="en">Your first visit</span><span class="zh">您的初診</span></h3><div class="price">$150 <span class="en">per session · PPO accepted</span><span class="zh">每次 · 接受 PPO</span></div><p><span class="en">Intake on pulse, tongue and health history, treatment tailored to your case, and guidance on herbs and food where useful.</span><span class="zh">詢問病史、把脈看舌，依個案調整治療，必要時提供中藥與飲食建議。</span></p><a class="btn btn-primary btn-sm" href="https://yiqi.janeapp.com/" target="_blank" rel="noopener"><span class="en">Book Online</span><span class="zh">線上預約</span></a></div>
+    </div>
+  </div></div>
+  <div class="section"><div class="wrap">
+    <h2><span class="en">Questions about acupuncture</span><span class="zh">針灸常見問題</span></h2>
+    <details><summary><span class="en">How many visits will I need?</span><span class="zh">需要來幾次？</span></summary><div class="ans"><span class="en">It depends on your concern. Many plans start with one to two visits a week, and your doctor will give you a plan at your first visit.</span><span class="zh">依個案而定。許多方案從每週一至兩次開始，醫師會在初診時給您完整規劃。</span></div></details>
+    <details><summary><span class="en">Can I use insurance?</span><span class="zh">可以用保險嗎？</span></summary><div class="ans"><span class="en">We accept PPO plans and verify your acupuncture benefits before your visit.</span><span class="zh">我們接受 PPO，並會在就診前核對您的針灸給付。</span></div></details>
+    <details><summary><span class="en">Afraid of needles?</span><span class="zh">怕針怎麼辦？</span></summary><div class="ans"><span class="en">Tell your doctor. Tui Na (needle-free massage) is a good alternative or a way to begin.</span><span class="zh">請告訴醫師。推拿（不用針的按摩）是很好的替代或入門方式。</span></div></details>
+    <div class="center" style="margin-top:18px"><a class="btn btn-primary" href="https://yiqi.janeapp.com/" target="_blank" rel="noopener"><span class="en">Book Online</span><span class="zh">線上預約</span></a></div>
+    <div class="flag"><span class="en"><b>Audit #4:</b> slug /accupuncture (misspelled) becomes /acupuncture with a 301. "Holistic healing system" and similar wording removed.</span><span class="zh"><b>健檢 #4：</b>拼錯的網址 /accupuncture 改為 /acupuncture 並做 301；移除「holistic healing system」等用語。</span></div>
+  </div></div>
+</section>
+
+<!-- ================= COMMUNITY ================= -->
+<section class="page" id="p-community">
+  <div class="section"><div class="wrap">
+    <div class="eyebrow"><span class="en">Community Clinic</span><span class="zh">社區門診</span></div>
+    <h1><span class="en">$60 community acupuncture: no package, no commitment</span><span class="zh">$60 社區針灸：不需療程包，沒有承諾</span></h1>
+    <p class="lead"><span class="en">Same licensed doctors, in a shared treatment room. A low-cost way to find out whether acupuncture helps you.</span><span class="zh">同樣是持照醫師，在共用治療室進行。以低成本了解針灸是否適合您。</span></p>
+    <table class="t">
+      <tr><th><span class="en">Day</span><span class="zh">日期</span></th><th><span class="en">Who can come</span><span class="zh">適用對象</span></th><th><span class="en">Hours</span><span class="zh">時間</span></th></tr>
+      <tr><td><b><span class="en">Monday</span><span class="zh">週一</span></b></td><td><span class="en">Open to everyone</span><span class="zh">開放所有民眾</span></td><td>3:00–6:00 pm</td></tr>
+      <tr><td><b><span class="en">Thursday</span><span class="zh">週四</span></b></td><td><span class="en">Seniors 65 and over</span><span class="zh">65 歲以上長者</span></td><td>10:00 am–6:00 pm</td></tr>
+    </table>
+    <p class="small"><span class="en">Last appointment 5:30 pm. Capacity is limited, so please book ahead.</span><span class="zh">最後預約時間 5:30 pm。名額有限，請提前預約。</span></p>
+    <div class="cta-row"><a class="btn btn-primary" href="https://yiqi.janeapp.com/" target="_blank" rel="noopener"><span class="en">Book a $60 visit</span><span class="zh">預約 $60 門診</span></a><a class="btn btn-ghost" href="tel:+16507889818">650-788-9818</a></div>
+    <div class="flag"><span class="en"><b>Audit #7:</b> one dedicated page for the offer that the Google and Meta ads promote. It replaces the mixed senior/public copy on /general-clean ("OUTREACH") and states both clinic days clearly.</span><span class="zh"><b>健檢 #7：</b>為 Google 與 Meta 廣告主打的優惠建立專屬頁，取代 /general-clean（「OUTREACH」）上混雜的長者／一般民眾內容，並清楚寫出兩個門診日。</span></div>
+  </div></div>
+  <div class="section alt"><div class="wrap split" style="align-items:start">
+    <div>
+      <h2><span class="en">What the $60 includes</span><span class="zh">$60 包含什麼</span></h2>
+      <ul class="tick"><li><span class="en">One acupuncture treatment with a licensed doctor</span><span class="zh">一次持照醫師針灸治療</span></li><li><span class="en">A brief initial assessment</span><span class="zh">簡短的初步評估</span></li><li><span class="en">Pay per visit; no contract, no insurance needed</span><span class="zh">單次付費，無合約，不需保險</span></li></ul>
+      <h3><span class="en">Not included at this price</span><span class="zh">此價格不含</span></h3>
+      <ul class="x"><li><span class="en">Tui Na massage</span><span class="zh">推拿</span></li><li><span class="en">Acu-Facial</span><span class="zh">針灸美顏</span></li><li><span class="en">Herbal consultation</span><span class="zh">中藥諮詢</span></li></ul>
+    </div>
+    <div>
+      <h2><span class="en">If it works for you</span><span class="zh">如果對您有效</span></h2>
+      <p><span class="en">Continue with private acupuncture at $150 per session (PPO accepted), or keep coming to the community clinic. There is no pressure either way.</span><span class="zh">可改約私人針灸（每次 $150，接受 PPO），也可繼續來社區門診。兩種選擇都不會有壓力。</span></p>
+      <h3><span class="en">Community events</span><span class="zh">社區活動</span></h3>
+      <p><span class="tbc"><span class="en">Event listings TBC: the current page shows past events (Aug–Sept 2026). Add only upcoming dates.</span><span class="zh">活動列表待確認：現站顯示的是已過期活動（2026 年 8–9 月），請只放即將舉行的日期。</span></span></p>
+    </div>
+  </div></div>
+</section>
+
+<!-- ================= FERTILITY ================= -->
+<section class="page" id="p-fertility">
+  <div class="section"><div class="wrap">
+    <div class="eyebrow"><span class="en">Services · Fertility</span><span class="zh">服務 · 生育</span></div>
+    <h1><span class="en">Fertility acupuncture and TCM support in San Carlos</span><span class="zh">聖卡洛斯生育針灸與中醫調理</span></h1>
+    <p class="lead"><span class="en">Support for women and men who are trying to conceive, naturally or alongside IUI or IVF. You are more than a chart number here.</span><span class="zh">協助想要懷孕的女性與男性，可自然備孕，也可配合 IUI 或 IVF。在這裡，您不只是一個病歷號碼。</span></p>
+    <div class="cta-row"><a class="btn btn-primary" href="https://yiqi.janeapp.com/" target="_blank" rel="noopener"><span class="en">Book a fertility consult</span><span class="zh">預約生育諮詢</span></a><a class="btn btn-ghost" href="tel:+16507889818">650-788-9818</a></div>
+    <div class="flag"><span class="en"><b>Audit #8:</b> the old page had no price, no doctors and an unsourced "20–30%" statistic. This version names the doctors and removes the statistic until a vetted source is supplied. Slug /copy-of-acu-facial-microneedling becomes /fertility-acupuncture.</span><span class="zh"><b>健檢 #8：</b>舊頁沒有價格、沒有醫師，並有無出處的「20–30%」數據。此版本列出醫師，並在取得可靠出處前移除該數據。網址 /copy-of-acu-facial-microneedling 改為 /fertility-acupuncture。</span></div>
+  </div></div>
+  <div class="section alt"><div class="wrap split" style="align-items:start">
+    <div>
+      <h2><span class="en">What your plan may include</span><span class="zh">您的方案可能包含</span></h2>
+      <ul class="tick">
+        <li><span class="en">Initial assessment and TCM diagnosis</span><span class="zh">初步評估與中醫診斷</span></li>
+        <li><span class="en">Acupuncture timed to your cycle</span><span class="zh">配合月經週期的針灸</span></li>
+        <li><span class="en">A custom Chinese herbal formula</span><span class="zh">客製化中藥處方</span></li>
+        <li><span class="en">TCM dietetics guidance</span><span class="zh">中醫食療建議</span></li>
+        <li><span class="en">Timing around IUI or IVF (stimulation phase, transfer day), coordinated with your fertility clinic</span><span class="zh">配合 IUI／IVF 的時間點（刺激期、植入日），與您的生殖中心協調</span></li>
+      </ul>
+      <p><span class="tbc"><span class="en">Program structure and pricing: client to confirm</span><span class="zh">方案架構與價格：待客戶確認</span></span></p>
+      <p><span class="en">Many patients start two to three months before an IUI or IVF cycle, but you can begin at any point.</span><span class="zh">許多病患在 IUI 或 IVF 週期前二至三個月開始，但任何時間都可以開始。</span></p>
+    </div>
+    <div>
+      <h2><span class="en">Your doctors</span><span class="zh">您的醫師</span></h2>
+      <div class="card"><h3>Dr. Kate Chen</h3><p><span class="en">DTCM, L.Ac. · Fertility and gynecological health, Acu-Facial. Background in neuroscience and biostatistics. Trained under a reproductive-health specialist with more than 20 years of experience.</span><span class="zh">DTCM、L.Ac. · 生育與婦科健康、針灸美顏。具神經科學與生物統計背景，曾跟隨擁有 20 年以上經驗的生殖健康專科醫師學習。</span></p></div>
+      <div class="card" style="margin-top:12px"><h3>Dr. Phyu Phyu Thin</h3><p><span class="en">DTCM, L.Ac, Dipl. O.M. (NCCAOM)® · Fertility, women's health, Acu-Facial.</span><span class="zh">DTCM、L.Ac、Dipl. O.M.（NCCAOM）® · 生育、女性健康、針灸美顏。</span></p></div>
+    </div>
+  </div></div>
+  <div class="section"><div class="wrap">
+    <p class="disc"><span class="en">Acupuncture and herbs support, and do not replace, care from your fertility clinic or physician. <span class="tbc">Add a vetted research citation here only after clinic and legal approval.</span></span><span class="zh">針灸與中藥是輔助，不能取代生殖中心或醫師的照護。<span class="tbc">待診所與法務核准後，再於此處加入可靠的研究出處。</span></span></p>
+  </div></div>
+</section>
+
+<!-- ================= TUINA ================= -->
+<section class="page" id="p-tuina">
+  <div class="section"><div class="wrap">
+    <div class="eyebrow"><span class="en">Services · Tui Na</span><span class="zh">服務 · 推拿</span></div>
+    <h1><span class="en">Tui Na massage in San Carlos</span><span class="zh">聖卡洛斯推拿</span></h1>
+    <p class="lead"><span class="en">60 minutes of meridian and acupressure massage with hot stone. No needles.</span><span class="zh">60 分鐘經絡穴位推拿，加上熱石。不用針。</span></p>
+    <div class="cards">
+      <div class="card hl"><h3><span class="en">Single session</span><span class="zh">單次</span></h3><div class="price">$120</div><p><span class="en">60 minutes with Sifu Amy</span><span class="zh">60 分鐘，由 Sifu Amy 施作</span></p></div>
+      <div class="card hl"><h3><span class="en">5-session package</span><span class="zh">5 次套裝</span></h3><div class="price">$500</div><p><span class="en">Save $100 over single sessions.</span><span class="zh">比單次購買省 $100。</span></p></div>
+    </div>
+    <p class="small"><span class="en">Insurance can be used for Tui Na; we verify your benefits before your visit.</span><span class="zh">推拿可使用保險，我們會在就診前核對您的給付。</span></p>
+    <div class="cta-row"><a class="btn btn-primary" href="https://yiqi.janeapp.com/" target="_blank" rel="noopener"><span class="en">Book Tui Na</span><span class="zh">預約推拿</span></a><a class="btn btn-ghost" href="tel:+16507889818">650-788-9818</a></div>
+  </div></div>
+  <div class="section alt"><div class="wrap split" style="align-items:start">
+    <div>
+      <h2><span class="en">What to expect</span><span class="zh">療程內容</span></h2>
+      <p><span class="en">Tui Na works along your meridians with pressure, kneading and acupressure, and the hot stone adds warmth to tight areas. Many people choose it when they prefer not to have needles, or want to start gently.</span><span class="zh">推拿沿著經絡施以按壓、揉捏與穴位按壓，熱石為緊繃處帶來溫熱。不想用針、或想溫和入門的人，常會選擇推拿。</span></p>
+      <p><b><span class="en">Your practitioner</span><span class="zh">您的治療師</span></b>: Sifu Amy <span class="small"><span class="en">(not Dr. Amy Wang)</span><span class="zh">（與王醫師 Dr. Amy Wang 為不同人）</span></span> <span class="tbc"><span class="en">license/credentials TBC</span><span class="zh">執照／資歷待確認</span></span></p>
+      <p class="small"><span class="en">Tui Na is not included in the $60 community clinic.</span><span class="zh">$60 社區門診不含推拿。</span></p>
+    </div>
+    <div class="ph sq"><span class="en">Photo: Tui Na session (replace the Reiki image on the current page)</span><span class="zh">照片：推拿療程（取代現站的 Reiki 圖片）</span></div>
+  </div>
+  <div class="wrap"><div class="flag"><span class="en"><b>Audit #8:</b> price, duration, practitioner and insurance now on the page (client confirmed Oct 7). "Reiki" and "emotional blockages" wording removed to match the brand voice.</span><span class="zh"><b>健檢 #8：</b>價格、時長、治療師、保險現已寫在頁面（客戶 10 月 7 日確認）；移除「Reiki」「emotional blockages」等不符品牌語氣的用語。</span></div></div></div>
+</section>
+
+<!-- ================= ACU-FACIAL ================= -->
+<section class="page" id="p-acufacial">
+  <div class="section"><div class="wrap">
+    <div class="eyebrow"><span class="en">Services · Acu-Facial</span><span class="zh">服務 · 針灸美顏</span></div>
+    <h1><span class="en">Acu-Facial: facial and body acupuncture for your skin</span><span class="zh">針灸美顏：用臉部與身體針灸調理肌膚</span></h1>
+    <p class="lead"><span class="en">A doctor-led alternative to Botox and filler. Every session combines facial and body acupuncture.</span><span class="zh">由醫師主導，是肉毒桿菌與填充劑之外的另一種選擇。每次療程都結合臉部與身體針灸。</span></p>
+    <div class="split" style="align-items:start">
+      <div>
+        <h3><span class="en">Facial points aim to</span><span class="zh">臉部穴位的目標</span></h3>
+        <ul class="tick"><li><span class="en">Boost circulation and support collagen</span><span class="zh">促進循環、支持膠原蛋白</span></li><li><span class="en">Improve skin tone and texture</span><span class="zh">改善膚色與膚質</span></li><li><span class="en">Ease puffiness and tired-looking eyes</span><span class="zh">減輕浮腫與疲憊的眼周</span></li></ul>
+        <h3><span class="en">Body points aim to</span><span class="zh">身體穴位的目標</span></h3>
+        <ul class="tick"><li><span class="en">Improve circulation and digestion</span><span class="zh">改善循環與消化</span></li><li><span class="en">Reduce stress</span><span class="zh">減輕壓力</span></li></ul>
+        <p><b><span class="en">Doctors</span><span class="zh">醫師</span></b>: Dr. Kate Chen, Dr. Phyu Phyu Thin</p>
+        <p><span class="tbc"><span class="en">Price, session length and recommended series (e.g., 4–10 weekly sessions) to be confirmed by the clinic</span><span class="zh">價格、單次時長與建議療程數（例如每週一次、共 4–10 次）待診所確認</span></span></p>
+        <div class="cta-row"><a class="btn btn-primary" href="https://yiqi.janeapp.com/" target="_blank" rel="noopener"><span class="en">Book Online</span><span class="zh">線上預約</span></a><a class="btn btn-ghost" href="tel:+16507889818">650-788-9818</a></div>
+      </div>
+      <div class="ph sq"><span class="en">Photo: Acu-Facial session</span><span class="zh">照片：針灸美顏療程</span></div>
+    </div>
+    <div class="flag"><span class="en"><b>Audit #8:</b> the old page was about 150 words with no price. The proof vault has no Acu-Facial quotes yet, so add reviews before sending paid traffic here. Outcome claims are softened to "aim to / support".</span><span class="zh"><b>健檢 #8：</b>舊頁僅約 150 字且無價格。Proof Vault 目前沒有 Acu-Facial 評論，投放付費流量前請先累積評論。效果描述已改為「目標／支持」等較保守語氣。</span></div>
+  </div></div>
+</section>
+
+<!-- ================= DIETETICS ================= -->
+<section class="page" id="p-dietetics">
+  <div class="section"><div class="wrap">
+    <div class="eyebrow"><span class="en">TCM Dietetics</span><span class="zh">中醫食療</span></div>
+    <h1><span class="en">Eat well. Live well. Age well.</span><span class="zh">吃得好，活得好，老得好。</span></h1>
+    <p class="lead"><span class="en">In Traditional Chinese Medicine, food is part of treatment. The aim is to eat for your body's current state and the season, not only for calories.</span><span class="zh">在中醫裡，飲食是治療的一部分。目標是依您目前的身體狀態與季節來吃，而不只是計算熱量。</span></p>
+    <div class="steps">
+      <div class="step"><div class="n">1</div><h3><span class="en">WHAT to eat</span><span class="zh">吃什麼</span></h3><p><span class="en">Foods run warming or cooling. Cold and tired: favor warming foods such as ginger or lamb. Hot and stressed: favor cooling foods such as cucumber or mung beans. Heavy and bloated: favor drying foods such as corn or celery.</span><span class="zh">食物有溫涼之分。怕冷疲倦：多吃薑、羊肉等溫性食物；燥熱緊繃：多吃小黃瓜、綠豆等涼性食物；沉重脹氣：多吃玉米、芹菜等利濕食物。</span></p></div>
+      <div class="step"><div class="n">2</div><h3><span class="en">WHEN to eat</span><span class="zh">何時吃</span></h3><p><span class="en">Digestion is strongest around midday. Make lunch (11 am–1 pm) your largest meal and keep dinner (5–7 pm) lighter.</span><span class="zh">中午前後消化力最強。午餐（11 點至 1 點）吃最多，晚餐（5 點至 7 點）吃得較清淡。</span></p></div>
+      <div class="step"><div class="n">3</div><h3><span class="en">HOW to eat</span><span class="zh">怎麼吃</span></h3><p><span class="en">Prefer warm, cooked meals and drink warm water or tea with food. Cold drinks and ice cream weaken digestion.</span><span class="zh">以溫熱熟食為主，用餐時喝溫水或茶。冰飲與冰淇淋會削弱消化。</span></p></div>
+    </div>
+    <h2 style="margin-top:36px"><span class="en">Five Elements Tea 五行養生茶</span><span class="zh">五行養生茶</span></h2>
+    <p class="lead"><span class="en">Five blends, one for each element and its organ. Educational overview; ask your doctor which suits you.</span><span class="zh">五種配方，各對應一行與其臟腑。以下為衛教介紹，適合哪一款請詢問醫師。</span></p>
+    <div class="tea">
+      <div class="card"><h3><span class="en">Wood 木 <span>Liver</span></span><span class="zh">木 <span>肝</span></span></h3><p><span class="en">Liver-soothing, eye-brightening: chrysanthemum, rose, goji, cassia seed.</span><span class="zh">舒肝明目：菊花、玫瑰花、枸杞子、決明子。</span></p></div>
+      <div class="card"><h3><span class="en">Fire 火 <span>Heart</span></span><span class="zh">火 <span>心</span></span></h3><p><span class="en">Heart-nourishing, spirit-calming: longan, red dates, lily bulb, ophiopogon (maidong).</span><span class="zh">養心安神：桂圓肉、紅棗、百合、麥冬。</span></p></div>
+      <div class="card"><h3><span class="en">Earth 土 <span>Spleen</span></span><span class="zh">土 <span>脾</span></span></h3><p><span class="en">Balancing for all seasons: poria, astragalus, tangerine peel, goji, red dates.</span><span class="zh">四季平和：茯苓、黃耆、陳皮、枸杞子、紅棗。</span></p></div>
+      <div class="card"><h3><span class="en">Metal 金 <span>Lung</span></span><span class="zh">金 <span>肺</span></span></h3><p><span class="en">Lung-moistening: lily bulb, dried pear, sea coconut, ophiopogon, goji.</span><span class="zh">潤肺生津：百合、梨乾、海底椰、麥冬、枸杞子。</span></p></div>
+      <div class="card"><h3><span class="en">Water 水 <span>Kidney</span></span><span class="zh">水 <span>腎</span></span></h3><p><span class="en">Gently tonifying: dried mulberry, black soybean, black rice, goji.</span><span class="zh">溫和補腎：桑椹乾、黑豆、黑米、枸杞子。</span></p></div>
+    </div>
+    <p class="small" style="margin-top:10px"><span class="tbc"><span class="en">TBC: are the teas sold or only taught? If sold, add price and ordering.</span><span class="zh">待確認：茶品是否販售？若有，請補上價格與訂購方式。</span></span></p>
+    <h2 style="margin-top:36px"><span class="en">Body clock: Zi Wu Liu Zhu 子午流注</span><span class="zh">生理時鐘：子午流注</span></h2>
+    <p><span class="en">Zi Wu Liu Zhu holds that the flow of qi and blood follows the rhythm of the day. Aligning meals, rest and treatment with those rhythms is meant to support health.</span><span class="zh">子午流注認為氣血的運行與一天的節律同步。讓飲食、作息與治療配合這些節律，有助於維持健康。</span></p>
+    <div class="flag"><span class="en"><b>Audit #4:</b> /about-5 and /general-7 merge into /dietetics; the Zi Wu Liu Zhu page gets a plain-ASCII slug. Content is carried over from the live pages.</span><span class="zh"><b>健檢 #4：</b>/about-5 與 /general-7 合併為 /dietetics；子午流注頁改用純英文網址。內容沿用現站。</span></div>
+  </div></div>
+</section>
+
+<!-- ================= TAICHI ================= -->
+<section class="page" id="p-taichi">
+  <div class="section"><div class="wrap split" style="align-items:start">
+    <div>
+      <div class="eyebrow"><span class="en">TCM Energetics</span><span class="zh">中醫導引</span></div>
+      <h1><span class="en">Medical Tai-Chi with Sifu Donna</span><span class="zh">Sifu Donna 的醫療太極</span></h1>
+      <p class="lead"><span class="en">Tai-Chi taught as a structured health practice, to build strength, balance and calm between treatments.</span><span class="zh">把太極當作有結構的健康練習來教，幫助您在治療之間建立力量、平衡與平靜。</span></p>
+      <p><span class="en">Sifu Donna is an international gold medalist in Tai Chi competitions and a Chen-style Taijiquan practitioner trained by lineage holders from Chen Village. With a background in Chinese medicine, she has taught Medical Tai Chi in the Bay Area since 2018.</span><span class="zh">Sifu Donna 是國際太極競賽金牌得主，由陳家溝傳承人親自教導的陳氏太極拳練習者，具中醫背景，自 2018 年起在灣區教授醫療太極。</span></p>
+      <p><a href="http://www.youtube.com/@taichiwithdonna" target="_blank" rel="noopener"><span class="en">Tai-Chi with Donna on YouTube</span><span class="zh">YouTube：Tai-Chi with Donna</span></a> · <a href="http://www.internationaltaichicenter.com" target="_blank" rel="noopener">International Tai-Chi Center (ITCC)</a><br>donnataichi@gmail.com</p>
+      <p class="small"><span class="tbc"><span class="en">Current page claims Medical Tai Chi is "evidence-based" and "validated through clinical research": soften or cite a source before reuse.</span><span class="zh">現站稱醫療太極「有實證」「經臨床研究驗證」：沿用前請先改為較保守的說法或附上出處。</span></span></p>
+    </div>
+    <div class="ph"><span class="en">Photo: Sifu Donna / class (reuse existing images)</span><span class="zh">照片：Sifu Donna／課堂（沿用現站圖片）</span></div>
+  </div></div>
+</section>
+
+<!-- ================= TEAM ================= -->
+<section class="page" id="p-team">
+  <div class="section"><div class="wrap">
+    <div class="eyebrow"><span class="en">Our Team</span><span class="zh">醫師團隊</span></div>
+    <h1><span class="en">Five doctors. One system.</span><span class="zh">五位醫師，一套系統。</span></h1>
+    <p class="lead"><span class="en">YiQi means "coming together." Our doctors share one belief: that you can treat what is blocked and also strengthen the flow that keeps you well.</span><span class="zh">「益氣」有「共同匯聚」之意。我們的醫師有一個共同信念：既要處理阻塞之處，也要強化讓您保持健康的氣血之流。</span></p>
+    <div class="split" style="align-items:start;margin-top:18px">
+      <div>
+        <h2><span class="en">The story of YiQi</span><span class="zh">益氣堂的故事</span></h2>
+        <p><span class="en">A group of TCM practitioners often met in a community park to talk about their patients: burned-out young professionals, older adults low on energy, athletes, new mothers. They had good tools, but something felt missing.</span><span class="zh">一群中醫師常在社區公園聚會，討論他們的病患：過勞的年輕上班族、精力不足的長者、運動員、新手媽媽。他們有很好的工具，卻總覺得缺了什麼。</span></p>
+        <p><span class="en">Then Tai-Chi master Sifu Donna joined them and said: "You treat the blockage, but what about the flow of the river itself?" That became YiQi: TCM doctors, dietitians and Tai-Chi masters working as one team.</span><span class="zh">後來太極師傅 Sifu Donna 加入，她說：「你們處理阻塞，但河流本身的流動呢？」益氣堂就此誕生：中醫師、營養師與太極師傅，合為一個團隊。</span></p>
+        <p><span class="tbc"><span class="en">TBC: the live page says Dr. Wang's internship was in Taichung, Taiwan; the brand file says Hanoi. Confirm one version before publishing.</span><span class="zh">待確認：現站寫王醫師實習地點為台灣台中；品牌文件則是越南河內。發布前請確認統一說法。</span></span></p>
+      </div>
+      <div class="ph"><span class="en">Photo: team group (reuse existing)</span><span class="zh">照片：團隊合照（沿用現有）</span></div>
+    </div>
+    <div class="doc"><div class="ph"><span class="en">Photo: Dr. Amy Wang</span><span class="zh">照片：王醫師 Dr. Amy Wang</span></div><div>
+      <h3>Dr. Amy Wang</h3><div class="role"><span class="en">Founder · Pain &amp; Stress Management</span><span class="zh">創辦人 · 疼痛與壓力管理</span></div><div class="cred">DTCM, L.Ac.</div>
+      <p><span class="en">After a career as an entrepreneur in hospitality and education, Dr. Wang earned her Doctor of Traditional Chinese Medicine at Five Branches University. She founded YiQi to bring Chinese and Western approaches together around the patient.</span><span class="zh">王醫師曾在餐旅與教育領域創業，之後於 Five Branches University 取得中醫博士學位。她創立益氣堂，目的是讓中西醫方法圍繞著病患合作。</span></p>
+      <a class="btn btn-primary btn-sm" href="https://yiqi.janeapp.com/" target="_blank" rel="noopener"><span class="en">Book with Dr. Wang</span><span class="zh">預約王醫師</span></a></div></div>
+    <div class="doc"><div class="ph"><span class="en">Photo: Prof. Kevin Yen</span><span class="zh">照片：嚴教授 Prof. Kevin Yen</span></div><div>
+      <h3>Professor Kevin Yen</h3><div class="role"><span class="en">TCM Neurology &amp; Immunity</span><span class="zh">中醫神經與免疫</span></div><div class="cred">DTCM, L.Ac.</div>
+      <p><span class="en">A licensed acupuncturist who teaches at California University, Silicon Valley. He combines a former career as an electrical engineer with decades of Qi Gong practice.</span><span class="zh">持照針灸師，任教於 California University, Silicon Valley。他結合先前電機工程師的職涯與數十年的氣功修練。</span></p>
+      <a class="btn btn-primary btn-sm" href="https://yiqi.janeapp.com/" target="_blank" rel="noopener"><span class="en">Book with Prof. Yen</span><span class="zh">預約嚴教授</span></a></div></div>
+    <div class="doc"><div class="ph"><span class="en">Photo: Dr. Kate Chen</span><span class="zh">照片：陳醫師 Dr. Kate Chen</span></div><div>
+      <h3>Dr. Kate Chen</h3><div class="role"><span class="en">TCM Fertility &amp; Acu-Facial</span><span class="zh">中醫生育與針灸美顏</span></div><div class="cred">DTCM, L.Ac.</div>
+      <p><span class="en">Background in neuroscience and biostatistics. Focus on infertility, gynecological health and facial rejuvenation, with individual plans that look at each patient's constitution and history.</span><span class="zh">具神經科學與生物統計背景，專注於不孕、婦科健康與臉部回春，依每位病患的體質與病史制定個別方案。</span></p>
+      <a class="btn btn-primary btn-sm" href="https://yiqi.janeapp.com/" target="_blank" rel="noopener"><span class="en">Book with Dr. Chen</span><span class="zh">預約陳醫師</span></a></div></div>
+    <div class="doc"><div class="ph"><span class="en">Photo: Dr. Phyu Phyu Thin</span><span class="zh">照片：Dr. Phyu Phyu Thin</span></div><div>
+      <h3>Dr. Phyu Phyu Thin</h3><div class="role"><span class="en">TCM Fertility &amp; Acu-Facial</span><span class="zh">中醫生育與針灸美顏</span></div><div class="cred">DTCM, L.Ac, Dipl. O.M. (NCCAOM)®</div>
+      <p><span class="en">Started in Western medicine with a biological sciences degree and years as a pharmacy technician, then chose TCM. Completed externships in Vietnam, Taiwan and Nanjing. Interests: pain, internal medicine, dermatology, mental health, fertility and women's health.</span><span class="zh">從西醫領域起步，擁有生物科學學位與多年藥局技術員經驗，後轉而選擇中醫。曾於越南、台灣、南京完成海外臨床實習。專長：疼痛、內科、皮膚、心理健康、生育與女性健康。</span></p>
+      <a class="btn btn-primary btn-sm" href="https://yiqi.janeapp.com/" target="_blank" rel="noopener"><span class="en">Book with Dr. Thin</span><span class="zh">預約 Thin 醫師</span></a></div></div>
+    <div class="doc"><div class="ph"><span class="en">Photo: Dr. Miles Ronkos</span><span class="zh">照片：Dr. Miles Ronkos</span></div><div>
+      <h3>Dr. Miles Ronkos</h3><div class="role"><span class="en">TCM Men's Health &amp; Sports Injury</span><span class="zh">中醫男性健康與運動傷害</span></div><div class="cred">DTCM, L.Ac. <span class="tbc"><span class="en">NCCAOM® status TBC</span><span class="zh">NCCAOM® 資格待確認</span></span></div>
+      <p><span class="en">Trained in acupuncture, herbal medicine and tui na at Five Branches University in San Jose, and proficient in Mandarin. Treats men's health, digestive issues, chronic pain, women's health, insomnia and tinnitus.</span><span class="zh">於 San Jose 的 Five Branches University 學習針灸、中藥與推拿，通曉中文。處理男性健康、消化問題、慢性疼痛、女性健康、失眠與耳鳴。</span></p>
+      <a class="btn btn-primary btn-sm" href="https://yiqi.janeapp.com/" target="_blank" rel="noopener"><span class="en">Book with Dr. Ronkos</span><span class="zh">預約 Ronkos 醫師</span></a></div></div>
+    <div class="flag"><span class="en"><b>Audit #4, #8:</b> /about-1 and /about-5-1 (BIO) merge into one /our-team page; each doctor gets a Book button. Credentials as published on the live site; two items flagged for confirmation.</span><span class="zh"><b>健檢 #4、#8：</b>/about-1 與 /about-5-1（BIO）合併為單一 /our-team 頁，每位醫師附預約按鈕。資歷依現站內容，另有兩項請客戶確認。</span></div>
+  </div></div>
+</section>
+
+<!-- ================= FAQ ================= -->
+<section class="page" id="p-faq">
+  <div class="section"><div class="wrap" style="max-width:860px">
+    <div class="eyebrow">FAQ</div>
+    <h1><span class="en">Questions we hear most</span><span class="zh">最常被問到的問題</span></h1>
+    <details open><summary><span class="en">How much does a visit cost?</span><span class="zh">一次多少錢？</span></summary><div class="ans"><span class="en">Community clinic: $60 per visit (acupuncture only). Private acupuncture: $150 per session. Tui Na: $120, or 5 sessions for $500. Fertility and Acu-Facial pricing is confirmed at booking.</span><span class="zh">社區門診：每次 $60（僅限針灸）。私人針灸：每次 $150。推拿：$120，或 5 次 $500。生育與針灸美顏的價格於預約時確認。</span> <span class="tbc">TBC</span></div></details>
+    <details><summary><span class="en">Do you accept insurance?</span><span class="zh">你們接受保險嗎？</span></summary><div class="ans"><span class="en">We accept PPO plans. Coverage for acupuncture varies by plan, so we verify your benefits before your first visit and tell you your expected cost.</span><span class="zh">我們接受 PPO 保險。各保險對針灸的給付不同，因此我們會在初診前核對您的給付，並告知預估費用。</span></div></details>
+    <details><summary><span class="en">Who can come to the $60 community clinic?</span><span class="zh">誰可以來 $60 社區門診？</span></summary><div class="ans"><span class="en">Mondays 3:00–6:00 pm: everyone. Thursdays 10:00 am–6:00 pm: seniors 65+. Last appointment 5:30 pm. Acupuncture only; pay per visit.</span><span class="zh">週一下午 3:00–6:00：所有民眾。週四上午 10:00–下午 6:00：65 歲以上長者。最後預約 5:30 pm。僅限針灸，單次付費。</span></div></details>
+    <details><summary><span class="en">Does acupuncture hurt?</span><span class="zh">針灸會痛嗎？</span></summary><div class="ans"><span class="en">Most people feel a brief pinch or tingling at insertion, then little or nothing. The needles are about as thin as a hair, and many patients fall asleep.</span><span class="zh">多數人進針時只有短暫的刺感或酥麻，之後幾乎沒有感覺。針細如髮絲，許多病患會睡著。</span></div></details>
+    <details><summary><span class="en">What happens at my first visit?</span><span class="zh">初診會做什麼？</span></summary><div class="ans"><span class="en">Your doctor takes your history, checks your pulse and tongue, explains the reasoning and plan, and starts treatment in the same visit.</span><span class="zh">醫師會詢問病史、把脈看舌，說明診斷與治療規劃，並在同一次就診開始治療。</span></div></details>
+    <details><summary><span class="en">How many visits will I need?</span><span class="zh">需要來幾次？</span></summary><div class="ans"><span class="en">It depends on your concern and how long you have had it. Many plans start with one to two visits per week; your doctor will give you a plan at the first visit.</span><span class="zh">依您的問題與病程而定。許多方案從每週一至兩次開始，醫師會在初診時給您完整規劃。</span></div></details>
+    <details><summary><span class="en">Can acupuncture be combined with IUI or IVF?</span><span class="zh">針灸可以配合 IUI 或 IVF 嗎？</span></summary><div class="ans"><span class="en">Many patients combine them. We time acupuncture around your cycle and treatment dates, and we recommend that you tell your fertility clinic about your plan.</span><span class="zh">許多病患會合併進行。我們會依您的週期與療程日期安排針灸，也建議您告知生殖中心您的計畫。</span></div></details>
+    <details><summary><span class="en">What is the difference between acupuncture and Tui Na?</span><span class="zh">針灸與推拿有什麼不同？</span></summary><div class="ans"><span class="en">Acupuncture uses thin needles at specific points. Tui Na is hands-on massage along the meridians, with acupressure and hot stone, and uses no needles.</span><span class="zh">針灸是用細針刺激特定穴位；推拿則是沿經絡的徒手按摩，搭配穴位按壓與熱石，不用針。</span></div></details>
+    <details><summary><span class="en">I don't like needles. Are there other options?</span><span class="zh">我不喜歡針，有其他選擇嗎？</span></summary><div class="ans"><span class="en">Yes. Tui Na uses no needles. Tell us when you book and we will suggest the best fit.</span><span class="zh">有的。推拿不用針。預約時告訴我們，我們會建議最合適的方式。</span></div></details>
+    <details><summary><span class="en">How do I book or reschedule?</span><span class="zh">如何預約或改期？</span></summary><div class="ans"><span class="en">Book online at yiqi.janeapp.com, or call 650-788-9818.</span><span class="zh">請至 yiqi.janeapp.com 線上預約，或來電 650-788-9818。</span></div></details>
+    <details><summary><span class="en">Do you see patients in Chinese?</span><span class="zh">可以用中文看診嗎？</span></summary><div class="ans"><span class="en">Our website is available in English and Chinese, and Dr. Ronkos is proficient in Mandarin. <span class="tbc">Confirm language support for each doctor.</span></span><span class="zh">本網站提供中英文，Ronkos 醫師通曉中文。<span class="tbc">請確認每位醫師可使用的語言。</span></span></div></details>
+    <div class="center" style="margin-top:22px"><a class="btn btn-primary" href="https://yiqi.janeapp.com/" target="_blank" rel="noopener"><span class="en">Book Online</span><span class="zh">線上預約</span></a></div>
+    <div class="flag"><span class="en"><b>Audit #6:</b> 11 Q&amp;As written in the way patients phrase them, covering price, PPO, the $60 clinic, first visit and fertility. Mark up with FAQPage JSON-LD.</span><span class="zh"><b>健檢 #6：</b>11 題以病患的口吻撰寫，涵蓋價格、PPO、$60 門診、初診與生育。請以 FAQPage JSON-LD 標記。</span></div>
+  </div></div>
+</section>
+
+<!-- ================= CONTACT ================= -->
+<section class="page" id="p-contact">
+  <div class="section"><div class="wrap split" style="align-items:start">
+    <div>
+      <div class="eyebrow"><span class="en">Contact</span><span class="zh">聯絡我們</span></div>
+      <h1><span class="en">Book or ask a question</span><span class="zh">預約或詢問</span></h1>
+      <p class="lead"><span class="en">Fastest: book online or call. We reply to messages on business days.</span><span class="zh">最快的方式：線上預約或來電。留言將於上班日回覆。</span></p>
+      <div class="cta-row"><a class="btn btn-primary" href="https://yiqi.janeapp.com/" target="_blank" rel="noopener"><span class="en">Book Online</span><span class="zh">線上預約</span></a><a class="btn btn-ghost" href="tel:+16507889818">650-788-9818</a></div>
+      <p style="margin-top:18px"><b>YiQi Medical Group 益氣堂</b><br>555 Old County Road, Suite 100<br>San Carlos, CA 94070<br>Email: yiqimedicalgroup@gmail.com</p>
+      <div class="ph mapph"><span class="en">Embedded Google Map</span><span class="zh">嵌入 Google 地圖</span></div>
+      <p class="small"><span class="en">Regular hours:</span><span class="zh">一般門診時間：</span> <span class="tbc"><span class="en">TBC</span><span class="zh">待確認</span></span></p>
+    </div>
+    <form class="f" onsubmit="event.preventDefault();alert('Mockup only — form not connected.')">
+      <h3><span class="en">Send us a message</span><span class="zh">留言給我們</span></h3>
+      <div><label><span class="en">Name</span><span class="zh">姓名</span></label><input type="text"></div>
+      <div><label><span class="en">Phone or email</span><span class="zh">電話或 Email</span></label><input type="text"></div>
+      <div><label><span class="en">I'm interested in</span><span class="zh">我想了解</span></label><select id="sel2"><option data-t-en="Community clinic ($60)" data-t-zh="社區門診（$60）"></option><option data-t-en="Private acupuncture" data-t-zh="私人針灸"></option><option data-t-en="Fertility support" data-t-zh="生育調理"></option><option data-t-en="Tui Na massage" data-t-zh="推拿"></option><option data-t-en="Acu-Facial" data-t-zh="針灸美顏"></option></select></div>
+      <div><label><span class="en">Message (optional)</span><span class="zh">留言（選填）</span></label><textarea rows="4"></textarea></div>
+      <button class="btn btn-primary" type="submit"><span class="en">Send</span><span class="zh">送出</span></button>
+      <div class="small"><span class="en">Please do not include medical details in this form.</span><span class="zh">請勿在此表單填寫病情細節。</span></div>
+    </form>
+  </div></div>
+</section>
+
+<!-- ================= PRIVACY ================= -->
+<section class="page" id="p-privacy">
+  <div class="section"><div class="wrap" style="max-width:820px">
+    <h1><span class="en">Privacy Policy</span><span class="zh">隱私權政策</span></h1>
+    <p class="small"><span class="en">Effective January 1, 2026 · full text unchanged from the current /privacy page, with the corrections below.</span><span class="zh">2026 年 1 月 1 日生效 · 全文沿用現行 /privacy 頁面，並做以下更正。</span></p>
+    <ul class="tick">
+      <li><span class="en">Delete the stray last line "This response is AI-generated, for reference only."</span><span class="zh">刪除最後一行殘留的「This response is AI-generated, for reference only.」</span></li>
+      <li><span class="en">Add a visible "Cookie Settings" link in the footer, as the policy promises (confirm the banner loads).</span><span class="zh">依政策所述，在頁尾加入可見的「Cookie Settings」連結（並確認橫幅確實會載入）。</span></li>
+      <li><span class="en">Add a short Terms of Use page and link it beside this page in the footer.</span><span class="zh">新增簡短的使用條款頁，並在頁尾與本頁並列連結。</span></li>
+    </ul>
+    <div class="flag"><span class="en"><b>Audit #2, #5 (Authority):</b> Privacy Policy is a May-to-October improvement. Remaining gaps: AI-generated disclaimer line, no Terms page.</span><span class="zh"><b>健檢 #2、第 5 面向（權威）：</b>隱私權政策是 5 月至 10 月間的改善項目。尚餘缺口：「AI-generated」殘留字樣、沒有使用條款頁。</span></div>
+  </div></div>
+</section>
+
+<!-- ================= HANDOFF NOTES ================= -->
+<section class="page" id="p-notes">
+  <div class="section"><div class="wrap handoff">
+    <div class="eyebrow">Handoff</div>
+    <h1><span class="en">Handoff notes for design and Wix build</span><span class="zh">設計與 Wix 建置交付備註</span></h1>
+    <p class="lead"><span class="en">How this mockup answers the October 14 audit, what to build, and what the client must confirm first.</span><span class="zh">此 Mockup 如何回應 10 月 14 日健檢、需要建置什麼，以及客戶須先確認哪些事項。</span></p>
+
+    <h3><span class="en">1. Audit finding → where it is fixed</span><span class="zh">1. 健檢發現 → 對應修正位置</span></h3>
+    <div style="overflow-x:auto"><table class="t">
+      <tr><th>#</th><th><span class="en">Audit action</span><span class="zh">健檢行動</span></th><th><span class="en">In this mockup</span><span class="zh">本 Mockup 對應</span></th></tr>
+      <tr><td>1</td><td><span class="en">Schema phone 9918 → 9818</span><span class="zh">結構化資料電話 9918 → 9818</span></td><td><span class="en">Footer, Contact and Home all use 650-788-9818. Developer: set the same number in LocalBusiness data.</span><span class="zh">頁尾、聯絡頁、首頁皆為 650-788-9818。開發：結構化資料的電話請同步更正。</span></td></tr>
+      <tr><td>2</td><td><span class="en">Book Online button; real social links; remove AI line</span><span class="zh">Book Online 按鈕、真實社群連結、移除 AI 字樣</span></td><td><span class="en">Header button + mobile sticky bar; Privacy page note. Social links: <span class="tbc">URLs TBC</span></span><span class="zh">頁首按鈕與手機底部固定列；隱私權頁備註。社群連結：<span class="tbc">網址待確認</span></span></td></tr>
+      <tr><td>3</td><td><span class="en">Title, meta, H1, hero</span><span class="zh">標題、meta、H1、首屏文案</span></td><td><span class="en">Home hero and the metadata table below</span><span class="zh">首頁首屏與下方 metadata 表</span></td></tr>
+      <tr><td>4</td><td><span class="en">Remove duplicate pages; clean slugs</span><span class="zh">移除重複頁；整理網址</span></td><td><span class="en">Site map and redirect table below</span><span class="zh">下方網站架構與轉址表</span></td></tr>
+      <tr><td>5</td><td><span class="en">Keyword map</span><span class="zh">關鍵字地圖</span></td><td><span class="en">Not done yet: H1s use "Acupuncture in San Carlos" as an interim target. Run keyword-research, then revisit page titles.</span><span class="zh">尚未完成：H1 暫以「聖卡洛斯針灸」為目標；請先執行 keyword-research，再回頭調整頁面標題。</span></td></tr>
+      <tr><td>6</td><td><span class="en">FAQ, schema, llms.txt</span><span class="zh">FAQ、結構化資料、llms.txt</span></td><td><span class="en">FAQ page and home FAQ block; "first visit" steps. Developer: FAQPage markup; extend LocalBusiness (hours, geo, sameAs) after checking what is already deployed; rewrite the llms.txt summary to describe the clinic.</span><span class="zh">FAQ 頁與首頁 FAQ 區塊、「初診流程」。開發：加 FAQPage 標記；先確認現有內容，再補 LocalBusiness（營業時間、座標、sameAs）；重寫 llms.txt 摘要以描述診所。</span></td></tr>
+      <tr><td>7</td><td><span class="en">$60 Community Clinic page</span><span class="zh">$60 社區門診頁</span></td><td><span class="en">Community page + home card and band</span><span class="zh">社區門診頁，加上首頁卡片與橫幅</span></td></tr>
+      <tr><td>8</td><td><span class="en">Tui Na, Fertility, Acu-Facial pages</span><span class="zh">推拿、生育、針灸美顏頁</span></td><td><span class="en">Rebuilt with price, practitioner, one CTA; condition claims trimmed</span><span class="zh">重做並加入價格、治療師、單一 CTA；病症宣稱已精簡</span></td></tr>
+      <tr><td>9</td><td><span class="en">Reviews on the site</span><span class="zh">網站上的評論</span></td><td><span class="en">Rating in trust bar + 3 verbatim quotes</span><span class="zh">信任列的評分，加上 3 則評論原文</span></td></tr>
+      <tr><td>10</td><td><span class="en">GBP and directories</span><span class="zh">GBP 與目錄站</span></td><td><span class="en">Off-site task; keep NAP identical to the footer</span><span class="zh">站外工作；NAP 須與頁尾完全一致</span></td></tr>
+      <tr><td>11</td><td><span class="en">hreflang</span><span class="zh">hreflang</span></td><td><span class="en">Language toggle here maps to /zh; declare it as <code>zh-Hant</code> (not de-cn) and <code>en-US</code> for English</span><span class="zh">此處語言切換對應 /zh；請標為 <code>zh-Hant</code>（而非 de-cn），英文為 <code>en-US</code></span></td></tr>
+    </table></div>
+
+    <h3><span class="en">2. Proposed site map and redirects</span><span class="zh">2. 建議網站架構與轉址</span></h3>
+    <div style="overflow-x:auto"><table class="t">
+      <tr><th><span class="en">Current URL</span><span class="zh">現行網址</span></th><th><span class="en">New URL</span><span class="zh">新網址</span></th><th><span class="en">Action</span><span class="zh">動作</span></th></tr>
+      <tr><td>/ (home)</td><td>/</td><td><span class="en">Rebuild</span><span class="zh">改版</span></td></tr>
+      <tr><td>/accupuncture</td><td>/acupuncture</td><td>301</td></tr>
+      <tr><td>/services-5</td><td>/services</td><td>301</td></tr>
+      <tr><td>/general-clean (OUTREACH)</td><td>/community-clinic</td><td>301</td></tr>
+      <tr><td>/copy-of-acu-facial-microneedling</td><td>/fertility-acupuncture</td><td>301</td></tr>
+      <tr><td>/acu-facial-microneedling</td><td>/acu-facial</td><td>301</td></tr>
+      <tr><td>/tuina-massage</td><td>/tui-na-massage</td><td>301</td></tr>
+      <tr><td>/about-1, /about-5-1</td><td>/our-team</td><td>301 + <span class="en">merge</span><span class="zh">合併</span></td></tr>
+      <tr><td>/about-5, /general-7</td><td>/dietetics</td><td>301 + <span class="en">merge</span><span class="zh">合併</span></td></tr>
+      <tr><td>/zi-wu-liu-zhu-子午流注</td><td>/zi-wu-liu-zhu</td><td>301</td></tr>
+      <tr><td>/about-3</td><td>/tai-chi</td><td>301</td></tr>
+      <tr><td>/copy-of-home, /copy-of-home-2, /copy-of-services, /copy-of-tuina-massage, /services-1, /items, /inquiry-services-page, /services-7</td><td><span class="en">nearest new page</span><span class="zh">最接近的新頁面</span></td><td><span class="en">Unpublish + 301 (check content first)</span><span class="zh">下架並 301（先檢查內容）</span></td></tr>
+      <tr><td>/appointments, /giftcards</td><td>—</td><td><span class="en">Not reviewed in this audit: decide keep or retire</span><span class="zh">本次健檢未檢視：決定保留或移除</span></td></tr>
+      <tr><td>/privacy</td><td>/privacy</td><td><span class="en">Keep; fix last line; add Terms</span><span class="zh">保留；修正最後一行；新增使用條款</span></td></tr>
+    </table></div>
+
+    <h3><span class="en">3. Metadata (proposed)</span><span class="zh">3. 建議的 Metadata</span></h3>
+    <div style="overflow-x:auto"><table class="t">
+      <tr><th>Page</th><th>Title (EN)</th><th>Meta description (EN)</th></tr>
+      <tr><td>Home</td><td>Acupuncture in San Carlos, CA | YiQi Medical Group 益氣堂 <span class="small">(54)</span></td><td>Five licensed TCM doctors in San Carlos. PPO accepted. Try acupuncture at our $60 community clinic, no package. Book online or call 650-788-9818. <span class="small">(145)</span></td></tr>
+<tr><td>$60 Community Clinic</td><td>$60 Community Acupuncture in San Carlos | YiQi <span class="small">(46)</span></td><td>Acupuncture for $60: Mondays 3–6 pm (everyone) and Thursdays 10 am–6 pm (seniors 65+). No package, pay per visit. Book at YiQi in San Carlos. <span class="small">(141)</span></td></tr>
+<tr><td>Acupuncture</td><td>Acupuncture in San Carlos, CA | YiQi Medical Group <span class="small">(50)</span></td><td>Private acupuncture with a licensed TCM doctor in San Carlos. $150 per session, PPO accepted, benefits verified first. Book online. <span class="small">(131)</span></td></tr>
+<tr><td>Fertility</td><td>Fertility Acupuncture in San Carlos | YiQi Medical <span class="small">(50)</span></td><td>Fertility acupuncture and TCM support in San Carlos, alone or alongside IUI/IVF. Licensed doctors. PPO accepted. Book a consult. <span class="small">(128)</span></td></tr>
+<tr><td>Tui Na</td><td>Tui Na Massage in San Carlos | YiQi Medical Group <span class="small">(49)</span></td><td>60-minute Tui Na with acupressure and hot stone: $120, or 5 sessions for $500. No needles. Insurance can be used. Book in San Carlos. <span class="small">(133)</span></td></tr>
+<tr><td>Acu-Facial</td><td>Acu-Facial Acupuncture in San Carlos | YiQi <span class="small">(43)</span></td><td>Facial and body acupuncture for your skin, from licensed TCM doctors. An alternative to Botox and filler. Book at YiQi in San Carlos. <span class="small">(133)</span></td></tr>
+<tr><td>Our Team</td><td>Our Doctors | YiQi Medical Group San Carlos <span class="small">(43)</span></td><td>Meet five licensed TCM doctors in San Carlos: pain, fertility, neurology, sports injury and more. Book with the right doctor for you. <span class="small">(133)</span></td></tr>
+<tr><td>FAQ</td><td>FAQ: Cost, Insurance, First Visit | YiQi Medical <span class="small">(48)</span></td><td>Answers on acupuncture cost, PPO insurance, the $60 community clinic, your first visit and fertility support at YiQi in San Carlos. <span class="small">(131)</span></td></tr>
+<tr><td>Dietetics</td><td>TCM Dietetics &amp; Five Elements Tea | YiQi Medical <span class="small">(48)</span></td><td>Eat well, live well, age well: TCM food guidance, Five Elements Tea and body-clock eating from YiQi Medical Group in San Carlos. <span class="small">(128)</span></td></tr>
+<tr><td>Tai-Chi</td><td>Medical Tai-Chi with Sifu Donna | YiQi Medical <span class="small">(46)</span></td><td>Medical Tai-Chi taught by Sifu Donna, an international gold medalist, in the Bay Area. Offered through YiQi Medical Group in San Carlos. <span class="small">(136)</span></td></tr>
+    </table></div>
+    <div style="overflow-x:auto"><table class="t">
+      <tr><th>頁面</th><th>標題（中）</th><th>Meta 描述（中）</th></tr>
+      <tr><td>首頁</td><td>聖卡洛斯針灸｜益氣堂 YiQi Medical Group <span class="small">(29)</span></td><td>聖卡洛斯五位持照中醫師，接受 PPO 保險。$60 社區門診可無負擔體驗針灸，不需療程包。線上預約或來電 650-788-9818。 <span class="small">(66)</span></td></tr>
+<tr><td>$60 社區門診</td><td>$60 社區針灸｜聖卡洛斯益氣堂 <span class="small">(16)</span></td><td>$60 針灸：週一下午 3–6 點（所有民眾）、週四上午 10 點至下午 6 點（65 歲以上）。不需療程包，單次付費。 <span class="small">(60)</span></td></tr>
+<tr><td>針灸</td><td>聖卡洛斯針灸｜益氣堂 YiQi Medical Group <span class="small">(29)</span></td><td>聖卡洛斯持照中醫師一對一針灸，每次 $150，接受 PPO，就診前先核對保險給付。線上預約。 <span class="small">(46)</span></td></tr>
+<tr><td>生育調理</td><td>聖卡洛斯生育針灸｜益氣堂 <span class="small">(12)</span></td><td>聖卡洛斯生育針灸與中醫調理，可單獨進行或配合 IUI／IVF。持照醫師，接受 PPO。預約諮詢。 <span class="small">(48)</span></td></tr>
+<tr><td>推拿</td><td>聖卡洛斯推拿｜益氣堂 YiQi Medical Group <span class="small">(29)</span></td><td>60 分鐘推拿，含穴位按壓與熱石：$120，或 5 次 $500。不用針，可使用保險。歡迎預約。 <span class="small">(48)</span></td></tr>
+<tr><td>針灸美顏</td><td>聖卡洛斯針灸美顏｜益氣堂 <span class="small">(12)</span></td><td>持照中醫師的臉部與身體針灸調理肌膚，是肉毒桿菌與填充劑之外的選擇。歡迎預約。 <span class="small">(38)</span></td></tr>
+<tr><td>醫師團隊</td><td>醫師團隊｜聖卡洛斯益氣堂 <span class="small">(12)</span></td><td>認識益氣堂五位持照中醫師：疼痛、生育、神經、運動傷害等專長。選擇適合您的醫師預約。 <span class="small">(41)</span></td></tr>
+<tr><td>常見問題</td><td>常見問題：費用、保險、初診｜益氣堂 <span class="small">(17)</span></td><td>針灸費用、PPO 保險、$60 社區門診、初診流程與生育調理的常見問題解答。 <span class="small">(38)</span></td></tr>
+<tr><td>食療</td><td>中醫食療與五行養生茶｜益氣堂 <span class="small">(14)</span></td><td>吃得好、活得好、老得好：益氣堂提供中醫飲食指導、五行養生茶與子午流注飲食。 <span class="small">(37)</span></td></tr>
+<tr><td>太極</td><td>Sifu Donna 醫療太極｜益氣堂 <span class="small">(19)</span></td><td>國際金牌得主 Sifu Donna 在灣區教授醫療太極，與聖卡洛斯益氣堂合作。 <span class="small">(39)</span></td></tr>
+    </table></div>
+    <p class="small"><span class="en">Counts shown in characters. English titles are 60 or fewer and descriptions 155 or fewer. Chinese titles are about 30 or fewer and descriptions about 80 or fewer.</span><span class="zh">數字為字元數。英文標題 ≤60、描述 ≤155；中文標題約 ≤30、描述約 ≤80。</span></p>
+
+    <h3><span class="en">4. Client must confirm before launch</span><span class="zh">4. 上線前須由客戶確認</span></h3>
+    <ul class="tick">
+      <li><span class="en">Regular clinic hours (not on any current page)</span><span class="zh">一般門診時間（現站任何頁面都沒有）</span></li>
+      <li><span class="en">Fertility program structure and pricing; Acu-Facial price, length and series</span><span class="zh">生育方案架構與價格；針灸美顏價格、時長與療程數</span></li>
+      <li><span class="en">Sifu Amy's license/credentials; Dr. Ronkos' NCCAOM® status</span><span class="zh">Sifu Amy 的執照／資歷；Ronkos 醫師的 NCCAOM® 資格</span></li>
+      <li><span class="en">Founding story detail: Taichung (live site) vs Hanoi (brand file)</span><span class="zh">創辦故事細節：台中（現站）與河內（品牌文件）</span></li>
+      <li><span class="en">Real Facebook / Instagram URLs (current icons go to wix.com)</span><span class="zh">真實 Facebook／Instagram 網址（目前圖示連到 wix.com）</span></li>
+      <li><span class="en">Current Google rating and review count; language support per doctor</span><span class="zh">目前 Google 評分與評論數；各醫師可使用的語言</span></li>
+      <li><span class="en">Sign-off on condition claims (removed: erectile dysfunction, Parkinson's, stroke rehab, long COVID, etc.) and on any fertility statistics</span><span class="zh">病症宣稱（已移除：勃起功能障礙、帕金森氏症、中風復健、Long COVID 等）與任何生育統計數據的核准</span></li>
+      <li><span class="en">Whether Five Elements Tea is sold; upcoming community events</span><span class="zh">五行養生茶是否販售；即將舉行的社區活動</span></li>
+    </ul>
+
+    <h3><span class="en">5. Design notes</span><span class="zh">5. 設計備註</span></h3>
+    <ul class="tick">
+      <li><span class="en">Light theme, slate-teal and rose accents, serif headings for a calm, teacherly feel; no stock "wellness" imagery. Use the clinic's real photos.</span><span class="zh">淺色主題、石板藍綠與玫瑰色點綴、襯線標題，營造沉穩、有教養的氛圍；不用空泛的「養生」圖庫照片，改用診所真實照片。</span></li>
+      <li><span class="en">Single primary action everywhere: Book Online. Phone is the secondary action; the $60 clinic is the low-risk entry.</span><span class="zh">全站單一主要行動：線上預約；電話為次要行動；$60 門診是低風險入口。</span></li>
+      <li><span class="en">Brand voice: no "holistic", "journey" or "ancient wisdom". Chinese copy is written for Chinese readers, not translated word by word.</span><span class="zh">品牌語氣：不用「holistic」「journey」「ancient wisdom」；中文版是為中文讀者撰寫，而非逐字翻譯。</span></li>
+      <li><span class="en">Mobile first: sticky Book / Call bar; menu collapses; form has 4 fields.</span><span class="zh">手機優先：底部固定預約／來電列；選單收合；表單 4 欄。</span></li>
+    </ul>
+  </div></div>
+</section>
+
+</main>
+
+<footer class="site"><div class="wrap">
+  <div class="fgrid">
+    <div><h4>益氣堂 YiQi Medical Group</h4><p>555 Old County Road, Suite 100<br>San Carlos, CA 94070</p><p><a href="tel:+16507889818">650-788-9818</a><br>yiqimedicalgroup@gmail.com</p><p><a class="btn btn-primary btn-sm" href="https://yiqi.janeapp.com/" target="_blank" rel="noopener"><span class="en">Book Online</span><span class="zh">線上預約</span></a></p></div>
+    <div><h4><span class="en">Services</span><span class="zh">服務</span></h4><ul><li><a href="#community"><span class="en">$60 Community Clinic</span><span class="zh">$60 社區門診</span></a></li><li><a href="#acupuncture"><span class="en">Acupuncture</span><span class="zh">針灸</span></a></li><li><a href="#fertility"><span class="en">Fertility</span><span class="zh">生育調理</span></a></li><li><a href="#tuina"><span class="en">Tui Na</span><span class="zh">推拿</span></a></li><li><a href="#acufacial"><span class="en">Acu-Facial</span><span class="zh">針灸美顏</span></a></li></ul></div>
+    <div><h4><span class="en">Learn</span><span class="zh">了解更多</span></h4><ul><li><a href="#team"><span class="en">Our Team</span><span class="zh">醫師團隊</span></a></li><li><a href="#dietetics"><span class="en">Dietetics</span><span class="zh">食療</span></a></li><li><a href="#taichi"><span class="en">Tai-Chi</span><span class="zh">太極</span></a></li><li><a href="#faq">FAQ</a></li><li><a href="#contact"><span class="en">Contact</span><span class="zh">聯絡我們</span></a></li></ul></div>
+    <div><h4><span class="en">Follow</span><span class="zh">追蹤我們</span></h4><ul><li><span class="tbc" style="color:#1f2d36">Facebook URL TBC</span></li><li><span class="tbc" style="color:#1f2d36">Instagram URL TBC</span></li></ul><h4 style="margin-top:14px"><span class="en">Legal</span><span class="zh">法律資訊</span></h4><ul><li><a href="#privacy"><span class="en">Privacy Policy</span><span class="zh">隱私權政策</span></a></li><li><span class="en">Terms of Use (to add)</span><span class="zh">使用條款（待新增）</span></li><li><span class="en">Cookie Settings (to add)</span><span class="zh">Cookie 設定（待新增）</span></li></ul></div>
+  </div>
+  <div class="copy">© 2026 益氣堂 YiQi Medical Group. <span class="en">Acupuncture is not a substitute for emergency or physician care.</span><span class="zh">針灸不能取代急救或醫師照護。</span></div>
+</div></footer>
+
+<div class="sticky"><a class="btn btn-ghost btn-sm" href="tel:+16507889818"><span class="en">Call</span><span class="zh">來電</span></a><a class="btn btn-primary btn-sm" href="https://yiqi.janeapp.com/" target="_blank" rel="noopener"><span class="en">Book Online</span><span class="zh">線上預約</span></a></div>
+
+<script>
+(function(){
+  var TITLES={en:{home:'Acupuncture in San Carlos, CA | YiQi Medical Group 益氣堂'},zh:{home:'聖卡洛斯針灸｜益氣堂 YiQi Medical Group'}};
+  var lang='en';
+  function setLang(l){
+    lang=l;
+    document.body.setAttribute('data-lang',l);
+    document.documentElement.lang=(l==='zh'?'zh-Hant':'en');
+    document.querySelectorAll('.lang button').forEach(function(b){b.classList.toggle('on',b.dataset.l===l)});
+    document.querySelectorAll('[data-t-en]').forEach(function(o){o.textContent=o.getAttribute('data-t-'+l)});
+    document.title=(l==='zh'?'益氣堂 YiQi Medical Group — 網站改版 Mockup':'YiQi Medical Group 益氣堂 — Website Redesign Mockup');
+  }
+  function route(){
+    var h=(location.hash||'#home').replace('#','');
+    if(!document.getElementById('p-'+h)) h='home';
+    document.querySelectorAll('.page').forEach(function(p){p.classList.toggle('active',p.id==='p-'+h)});
+    document.querySelectorAll('nav.main a[data-r]').forEach(function(a){a.classList.toggle('cur',a.dataset.r===h)});
+    document.getElementById('mainnav').classList.remove('open');
+    document.getElementById('dd').classList.remove('open');
+    window.scrollTo(0,0);
+  }
+  document.querySelectorAll('.lang button').forEach(function(b){b.addEventListener('click',function(){setLang(b.dataset.l)})});
+  document.getElementById('burger').addEventListener('click',function(){document.getElementById('mainnav').classList.toggle('open')});
+  document.getElementById('ddbtn').addEventListener('click',function(){document.getElementById('dd').classList.toggle('open')});
+  document.getElementById('notesToggle').addEventListener('change',function(e){document.body.classList.toggle('notes',e.target.checked)});
+  window.addEventListener('hashchange',route);
+  setLang('en');
+  route();
+})();
+</script>
+</body>
+</html>
